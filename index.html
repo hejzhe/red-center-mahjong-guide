@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="红中麻将攻略">
+  <meta name="description" content="红中赖子麻将高期望收益攻略案例训练测试版">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>红中赖子麻将案例训练</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17352e;
+      --muted: #66756f;
+      --paper: #f5f1df;
+      --surface: #fffdf5;
+      --felt: #173f35;
+      --felt-soft: #dce9df;
+      --line: #cfd8d1;
+      --gold: #bd8b3c;
+      --rose: #a44841;
+      --blue: #447a88;
+      --violet: #6f628d;
+      --shadow: rgba(23, 53, 46, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--felt); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Songti SC", "Noto Serif SC", "STSong", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 5%, rgba(255,255,255,.08), transparent 26rem),
+        linear-gradient(160deg, #173f35 0%, #102f28 100%);
+    }
+
+    button { font: inherit; }
+
+    .app {
+      width: min(760px, 100%);
+      margin: 0 auto;
+      padding: max(18px, env(safe-area-inset-top)) 14px max(28px, env(safe-area-inset-bottom));
+    }
+
+    .masthead {
+      color: #f7f3df;
+      padding: 10px 4px 22px;
+    }
+
+    .masthead small {
+      display: block;
+      color: rgba(247, 243, 223, .72);
+      letter-spacing: .14em;
+      margin-bottom: 7px;
+    }
+
+    .masthead h1 {
+      margin: 0;
+      font-size: clamp(24px, 6vw, 38px);
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .masthead p {
+      margin: 8px 0 0;
+      color: rgba(247, 243, 223, .76);
+      font-family: "PingFang SC", sans-serif;
+      font-size: 14px;
+    }
+
+    .nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .nav button,
+    .choice,
+    .reveal {
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav button {
+      color: #f7f3df;
+      background: rgba(255,255,255,.08);
+    }
+
+    .nav button:first-child { justify-self: start; padding: 0 16px; }
+    .nav button:last-child { justify-self: end; padding: 0 16px; }
+    .nav button:disabled { opacity: .34; cursor: default; }
+
+    .progress {
+      color: #f7f3df;
+      font-family: "PingFang SC", sans-serif;
+      font-size: 13px;
+      letter-spacing: .08em;
+    }
+
+    .case-card {
+      padding: clamp(18px, 4vw, 30px);
+      background:
+        linear-gradient(rgba(255,255,255,.48), rgba(255,255,255,.48)),
+        repeating-linear-gradient(0deg, transparent 0 26px, rgba(23,63,53,.025) 27px);
+      background-color: var(--paper);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 22px;
+      box-shadow: 0 22px 50px rgba(0,0,0,.2);
+    }
+
+    .case-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .number,
+    .situation,
+    .legend,
+    .reversal {
+      font-family: "PingFang SC", sans-serif;
+      color: var(--muted);
+    }
+
+    .number { font-size: 13px; letter-spacing: .08em; }
+
+    h2 {
+      margin: 5px 0 0;
+      font-size: clamp(22px, 5vw, 31px);
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--felt);
+      background: var(--felt-soft);
+      font-family: "PingFang SC", sans-serif;
+      font-size: 12px;
+    }
+
+    .situation {
+      margin-top: 13px;
+      padding-bottom: 13px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .hand-zone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 26px 0 18px;
+    }
+
+    .hand {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .tile-break { flex-basis: 100%; height: 4px; }
+
+    .tile {
+      width: 43px;
+      height: 63px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      position: relative;
+      background: var(--surface);
+      border: 1px solid #b9c3bc;
+      border-bottom: 5px solid var(--line);
+      border-radius: 7px;
+      box-shadow: 0 4px 8px var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .tile .symbol {
+      font-family: "Apple Symbols", "Noto Sans Symbols 2", sans-serif;
+      font-size: 31px;
+      line-height: 1;
+    }
+
+    .tile .name {
+      margin-top: 1px;
+      color: var(--muted);
+      font-family: "PingFang SC", sans-serif;
+      font-size: 9px;
+    }
+
+    .tile[data-group="target"] { border-bottom-color: var(--blue); }
+    .tile[data-group="weak"] { border-bottom-color: var(--rose); }
+    .tile[data-group="complete"] { border-bottom-color: var(--felt); }
+    .tile[data-group="pairs"] { border-bottom-color: var(--violet); }
+    .tile[data-group="wild"] { border-bottom-color: var(--gold); }
+
+    .tile.recommended {
+      transform: translateY(-10px);
+      box-shadow: 0 0 0 3px rgba(23,63,53,.34), 0 7px 12px var(--shadow);
+    }
+
+    .incoming {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .incoming[hidden] { display: none; }
+    .plus { color: var(--muted); font-size: 24px; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      padding: 12px 0 17px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+    }
+
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+
+    .mark { width: 20px; height: 4px; border-radius: 5px; }
+    .mark.target { background: var(--blue); }
+    .mark.weak { background: var(--rose); }
+    .mark.complete { background: var(--felt); }
+    .mark.pairs { background: var(--violet); }
+    .mark.wild { background: var(--gold); }
+
+    .question {
+      margin: 2px 0 14px;
+      font-size: clamp(18px, 4.5vw, 23px);
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .choice {
+      padding: 10px 12px;
+      color: var(--ink);
+      background: rgba(255,255,255,.58);
+      border-color: var(--line);
+      font-family: "PingFang SC", sans-serif;
+    }
+
+    .choice.selected {
+      color: #f7f3df;
+      background: var(--felt);
+      border-color: var(--felt);
+    }
+
+    .explanation {
+      margin-top: 18px;
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      line-height: 1.7;
+    }
+
+    .explanation[hidden] { display: none; }
+    .recommendation { margin-bottom: 9px; font-weight: 600; }
+    .reversal { margin-top: 9px; font-size: 13px; }
+
+    .reveal {
+      width: 100%;
+      margin-top: 18px;
+      color: #f7f3df;
+      background: var(--felt);
+      border-color: var(--felt);
+      font-family: "PingFang SC", sans-serif;
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 18px 4px 0;
+      color: rgba(247,243,223,.62);
+      text-align: center;
+      font-family: "PingFang SC", sans-serif;
+      font-size: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .app { padding-left: 10px; padding-right: 10px; }
+      .case-card { border-radius: 18px; }
+      .hand-zone, .hand { justify-content: flex-start; }
+      .tile { width: 39px; height: 58px; }
+      .tile .symbol { font-size: 28px; }
+    }
+
+    @media (max-width: 380px) {
+      .tile { width: 35px; height: 53px; }
+      .tile .symbol { font-size: 25px; }
+    }
+
+    @media (max-width: 340px) {
+      .hand { gap: 3px; }
+      .tile { width: 31px; height: 48px; }
+      .tile .symbol { font-size: 22px; }
+      .tile .name { display: none; }
+      .choices { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tile { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <small>RED CENTER MAHJONG</small>
+      <h1>红中赖子麻将案例训练</h1>
+      <p>高期望收益攻略 · 手机测试版 v0.1</p>
+    </header>
+
+    <nav class="nav" aria-label="案例导航">
+      <button type="button" id="prev">‹ 上一题</button>
+      <span class="progress" id="progress"></span>
+      <button type="button" id="next">下一题 ›</button>
+    </nav>
+
+    <article class="case-card" aria-live="polite">
+      <div class="case-meta">
+        <div>
+          <div class="number" id="number"></div>
+          <h2 id="title"></h2>
+        </div>
+        <span class="badge" id="status"></span>
+      </div>
+
+      <div class="situation" id="situation"></div>
+
+      <div class="hand-zone">
+        <div class="hand" id="hand" aria-label="当前手牌"></div>
+        <div class="incoming" id="incoming" hidden>
+          <span class="plus" aria-hidden="true">＋</span>
+          <div id="incoming-tile"></div>
+        </div>
+      </div>
+
+      <div class="legend" id="legend" aria-label="牌面结构说明"></div>
+      <div class="question" id="question"></div>
+      <div class="choices" id="choices"></div>
+
+      <section class="explanation" id="explanation" hidden>
+        <div class="recommendation" id="recommendation"></div>
+        <div id="reason"></div>
+        <div class="reversal"><strong>结论反转：</strong><span id="reversal"></span></div>
+      </section>
+
+      <button class="reveal" type="button" id="reveal">查看解析</button>
+    </article>
+
+    <footer>当前仅含3个测试案例 · 经验性判断将继续通过模拟修订</footer>
+  </main>
+
+  <script>
+    const tileMap = {
+      '1m':['🀇','一万'],'2m':['🀈','二万'],'3m':['🀉','三万'],'4m':['🀊','四万'],'5m':['🀋','五万'],'6m':['🀌','六万'],'7m':['🀍','七万'],'8m':['🀎','八万'],'9m':['🀏','九万'],
+      '1p':['🀙','一筒'],'2p':['🀚','二筒'],'3p':['🀛','三筒'],'4p':['🀜','四筒'],'5p':['🀝','五筒'],'6p':['🀞','六筒'],'7p':['🀟','七筒'],'8p':['🀠','八筒'],'9p':['🀡','九筒'],
+      '1s':['🀐','一条'],'2s':['🀑','二条'],'3s':['🀒','三条'],'4s':['🀓','四条'],'5s':['🀔','五条'],'6s':['🀕','六条'],'7s':['🀖','七条'],'8s':['🀗','八条'],'9s':['🀘','九条'],
+      'E':['🀀','东'],'S':['🀁','南'],'W':['🀂','西'],'N':['🀃','北'],'R':['🀄','中'],'G':['🀅','发'],'B':['🀆','白']
+    };
+
+    const cases = [
+      {
+        number:'案例 01 · 开局路线', title:'单张字牌与外门顺子的取舍', status:'经验性初版',
+        situation:'换牌后 · 第3巡 · 尚未碰牌',
+        tiles:[['1m','target'],['2m','target'],['3m','target'],['5m','target'],['6m','target'],['8m','target'],['E','weak'],['S','weak'],['W','weak'],['G','weak'],['B','weak'],['4p','complete'],['5p','complete'],['6p','complete']],
+        breakAfter:7, legend:[['target','目标门6张'],['weak','5张单字'],['complete','完成面子']],
+        question:'“万 + 字”已有11张，应该拆掉456筒强做混一色吗？',
+        choices:['打无对单字','打四筒','打六筒','锁定混一色'], answer:0, recommendedTiles:[7],
+        recommendation:'推荐：先打无对单字',
+        reason:'保留456筒这个完成面子。单张字牌要折价，不能把5张单字当成5张稳定结构；牌面信息相同时，南仅作为任一无对单字的代表。',
+        reversal:'字牌形成两对以上，或已经碰出万子/字牌并接近混一色碰碰胡。'
+      },
+      {
+        number:'案例 02 · 碰牌分叉', title:'4对加红中，别人打出东', status:'经验性初版',
+        situation:'中盘前段 · 尚未碰牌 · 对手打出东',
+        tiles:[['1m','pairs'],['1m','pairs'],['4m','pairs'],['4m','pairs'],['7s','pairs'],['7s','pairs'],['E','pairs'],['E','pairs'],['R','wild'],['2m','weak'],['6p','weak'],['9p','weak'],['N','weak']],
+        breakAfter:7, incoming:['E','pairs'], legend:[['pairs','4个对子'],['wild','红中'],['weak','散张']],
+        question:'现在能碰东，是否应该碰？', choices:['碰，转碰碰胡','不碰，保留七对','碰后再看','只看东剩余张数'],
+        answer:1, recommendedTiles:[8], recommendation:'推荐：多数情况下不碰',
+        reason:'4对加1红中已是强七对候选，红中还能补对或形成豪华种子。碰牌会立即关闭七小对路线。',
+        reversal:'碰后直接听牌，或形成明确的混一色碰碰胡近听，而七对剩余散张质量很差。'
+      },
+      {
+        number:'案例 03 · 规则边界', title:'无赖子七对能否点炮胡', status:'规则确定',
+        situation:'门清 · 无红中作赖子 · 对手打出白',
+        tiles:[['1m','pairs'],['1m','pairs'],['3m','pairs'],['3m','pairs'],['5p','pairs'],['5p','pairs'],['7p','pairs'],['7p','pairs'],['2s','pairs'],['2s','pairs'],['9s','pairs'],['9s','pairs'],['B','target']],
+        breakAfter:7, incoming:['B','target'], highlightIncoming:true, legend:[['pairs','6个对子'],['target','白板单吊']],
+        question:'对手打出白板，这手牌能不能直接胡？', choices:['可以点炮胡','只能自摸','必须先碰白','有红中才可以胡'],
+        answer:0, recommendedTiles:[12], recommendation:'答案：可以点炮胡',
+        reason:'七小对只要没有使用红中作赖子，就保留点炮资格；七小对仍然不能碰、不能杠。',
+        reversal:'若必须把红中当作缺失牌使用，便属于赖子七对，只能自摸。'
+      }
+    ];
+
+    let current = 0;
+    let revealed = false;
+
+    const $ = (id) => document.getElementById(id);
+
+    function makeTile(code, group, recommended = false) {
+      const [symbol, name] = tileMap[code];
+      const tile = document.createElement('div');
+      tile.className = `tile${recommended ? ' recommended' : ''}`;
+      tile.dataset.group = group;
+      tile.setAttribute('aria-label', name);
+      tile.innerHTML = `<span class="symbol" aria-hidden="true">${symbol}</span><span class="name">${name}</span>`;
+      return tile;
+    }
+
+    function render() {
+      const data = cases[current];
+      $('progress').textContent = `${current + 1} / ${cases.length}`;
+      $('number').textContent = data.number;
+      $('title').textContent = data.title;
+      $('status').textContent = data.status;
+      $('situation').textContent = data.situation;
+      $('question').textContent = data.question;
+
+      $('hand').replaceChildren();
+      data.tiles.forEach(([code, group], index) => {
+        $('hand').appendChild(makeTile(code, group, revealed && data.recommendedTiles.includes(index)));
+        if (index === data.breakAfter) {
+          const lineBreak = document.createElement('span');
+          lineBreak.className = 'tile-break';
+          lineBreak.setAttribute('aria-hidden', 'true');
+          $('hand').appendChild(lineBreak);
+        }
+      });
+
+      $('incoming').hidden = !data.incoming;
+      $('incoming-tile').replaceChildren();
+      if (data.incoming) {
+        $('incoming-tile').appendChild(makeTile(data.incoming[0], data.incoming[1], revealed && data.highlightIncoming));
+      }
+
+      $('legend').replaceChildren();
+      data.legend.forEach(([group, label]) => {
+        const item = document.createElement('span');
+        item.className = 'legend-item';
+        item.innerHTML = `<span class="mark ${group}" aria-hidden="true"></span>${label}`;
+        $('legend').appendChild(item);
+      });
+
+      $('choices').replaceChildren();
+      data.choices.forEach((choice, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'choice';
+        button.textContent = `${String.fromCharCode(65 + index)} ${choice}`;
+        button.setAttribute('aria-pressed', 'false');
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.choice').forEach((peer) => {
+            const selected = peer === button;
+            peer.classList.toggle('selected', selected);
+            peer.setAttribute('aria-pressed', String(selected));
+          });
+        });
+        $('choices').appendChild(button);
+      });
+
+      $('explanation').hidden = !revealed;
+      $('recommendation').textContent = data.recommendation;
+      $('reason').textContent = data.reason;
+      $('reversal').textContent = data.reversal;
+      $('reveal').textContent = revealed ? '收起解析' : '查看解析';
+      $('prev').disabled = current === 0;
+      $('next').disabled = current === cases.length - 1;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    $('prev').addEventListener('click', () => {
+      if (current > 0) { current -= 1; revealed = false; render(); }
+    });
+
+    $('next').addEventListener('click', () => {
+      if (current < cases.length - 1) { current += 1; revealed = false; render(); }
+    });
+
+    $('reveal').addEventListener('click', () => { revealed = !revealed; render(); });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+
+    render();
+  </script>
+</body>
+</html>
