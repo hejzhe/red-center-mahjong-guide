@@ -334,7 +334,7 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 手机测试版 v0.1</p>
+      <p>高期望收益攻略 · 案例训练版 v0.3</p>
     </header>
 
     <nav class="nav" aria-label="案例导航">
@@ -375,7 +375,7 @@
       <button class="reveal" type="button" id="reveal">查看解析</button>
     </article>
 
-    <footer>当前仅含3个测试案例 · 经验性判断将继续通过模拟修订</footer>
+    <footer>当前包含13个案例 · 模拟支持只适用于对应牌面与边界</footer>
   </main>
 
   <script>
@@ -406,7 +406,7 @@
         question:'现在能碰东，是否应该碰？', choices:['碰，转碰碰胡','不碰，保留七对','碰后再看','只看东剩余张数'],
         answer:1, recommendedTiles:[8], recommendation:'推荐：多数情况下不碰',
         reason:'4对加1红中已是强七对候选，红中还能补对或形成豪华种子。碰牌会立即关闭七小对路线。',
-        reversal:'碰后直接听牌，或形成明确的混一色碰碰胡近听，而七对剩余散张质量很差。'
+        reversal:'碰牌能把未听真正推进到听牌，或碰后听牌在有效张、底分和点炮渠道上综合更高。'
       },
       {
         number:'案例 03 · 规则边界', title:'无赖子七对能否点炮胡', status:'规则确定',
@@ -417,6 +417,106 @@
         answer:0, recommendedTiles:[12], recommendation:'答案：可以点炮胡',
         reason:'七小对只要没有使用红中作赖子，就保留点炮资格；七小对仍然不能碰、不能杠。',
         reversal:'若必须把红中当作缺失牌使用，便属于赖子七对，只能自摸。'
+      },
+      {
+        number:'案例 04 · 豪华升级', title:'三张听还是豪华单吊', status:'千世界支持',
+        situation:'门清 · 普通七对与豪华七对二选一',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['2m','pairs'],['2m','pairs'],['3p','pairs'],['3p','pairs'],['4p','pairs'],['4p','pairs'],['5s','pairs'],['5s','pairs'],['E','pairs'],['E','pairs'],['G','weak']],
+        breakAfter:6, legend:[['complete','豪华种子'],['pairs','五个对子'],['weak','发牌孤张']],
+        question:'打哪张进入听牌？', choices:['打一万，普通七对三张听','打发，豪华七对单吊','拆东对','先不听牌'],
+        answer:1, recommendedTiles:[13], recommendation:'推荐：打发，保留111万追豪华七对',
+        reason:'当前固定牌面中，底分从8点翻到16点，足以补偿自然胡张从3张缩到1张；1000世界平均高1.520点。',
+        reversal:'豪华目标牌接近绝张、普通七对能叠加混一色，或听口缩窄超过当前比例时重新比较。'
+      },
+      {
+        number:'案例 05 · 杠牌决策', title:'高分近听要不要暗杠', status:'千世界支持',
+        situation:'混一色碰碰胡近听 · 手牌中有四张一万',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['1m','complete'],['2m','complete'],['2m','complete'],['2m','complete'],['3m','complete'],['3m','complete'],['3m','complete'],['E','complete'],['E','complete'],['E','complete'],['G','weak']],
+        breakAfter:6, legend:[['complete','已成刻子结构'],['weak','待处理牌']],
+        question:'暗杠一万，还是保留四张不杠？', choices:['暗杠一万','不杠，打一万','拆二万','只看固定杠分'],
+        answer:0, recommendedTiles:[0,1,2,3], recommendation:'推荐：暗杠一万',
+        reason:'暗杠不破坏当前高分近听，固定6点、额外补牌和杠开翻倍共同产生收益；1000世界平均高10.254点。',
+        reversal:'七对豪华路线中的四张同牌不能杠；若杠会改变合法听口或牌墙不足补牌，本结论不适用。'
+      },
+      {
+        number:'案例 06 · 终局防守', title:'低分近听是否应该退守', status:'千世界支持',
+        situation:'对手公开两组副露，显示12点混一色碰碰胡威胁',
+        tiles:[['4m','target'],['5m','complete'],['6m','target'],['7m','weak'],['1p','target'],['2p','target'],['3p','target'],['2s','target'],['3s','target'],['7s','target'],['8s','target'],['9s','target'],['S','pairs'],['S','pairs']],
+        breakAfter:6, legend:[['complete','已见四张的安全牌'],['weak','推进牌但确定点炮'],['pairs','将牌']],
+        question:'打七万维持鸡胡听牌，还是打五万安全退听？', choices:['打七万继续进攻','打五万安全退听','拆南对','随机选一张'],
+        answer:1, recommendedTiles:[1], recommendation:'推荐：打五万，接受退听',
+        reason:'己方只是低分鸡胡，七万在已知状态会立即点12点大牌；五万已见四张绝对安全。1000世界退守改善2.707点。',
+        reversal:'危险牌不是确定点炮、己方底分更高，或不存在绝对安全牌时，不能机械退听。'
+      },
+      {
+        number:'案例 07 · 早盘拒胡', title:'六点混一色要不要先放过', status:'千世界支持',
+        situation:'早中盘 · 三个暗刻 · 对手打出六万',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['2m','complete'],['2m','complete'],['2m','complete'],['3m','complete'],['3m','complete'],['3m','complete'],['4m','target'],['5m','target'],['E','pairs'],['E','pairs']],
+        breakAfter:6, incoming:['6m','target'], highlightIncoming:true, legend:[['complete','三个暗刻'],['target','当前成牌结构'],['pairs','字牌将']],
+        question:'现在可以点炮胡6点混一色，是否立即胡？', choices:['立即胡','放弃第一次，继续升级','永远不胡点炮','改做清一色'],
+        answer:1, recommendedTiles:[9,10], recommendation:'推荐：当前窄场景放弃第一次',
+        reason:'牌墙充足且三暗刻保留碰碰胡升级和自摸三份收益。1000世界中放弃一次平均高5.547点。',
+        reversal:'墙短、有效牌接近绝张、对手威胁高，或没有明确升级潜力时立即收胡。'
+      },
+      {
+        number:'案例 08 · 终局收胡', title:'同是六点，终局还等吗', status:'千世界支持',
+        situation:'牌墙约剩15张 · 对手打出七万',
+        tiles:[['1m','complete'],['2m','complete'],['3m','complete'],['4m','complete'],['5m','complete'],['6m','complete'],['7m','target'],['8m','target'],['8m','target'],['9m','target'],['9m','target'],['E','pairs'],['E','pairs']],
+        breakAfter:6, incoming:['7m','target'], highlightIncoming:true, legend:[['complete','已成顺子'],['target','当前胡牌结构'],['pairs','字牌将']],
+        question:'终局可以胡6点混一色，是否继续等自摸？', choices:['接受点炮胡','继续等自摸','拆东对','改做碰碰胡'],
+        answer:0, recommendedTiles:[6], recommendation:'推荐：立即接受',
+        reason:'剩余牌墙过短，继续等待的成功率不足以补偿确定的6点收入；1000世界接受平均高3.147点。',
+        reversal:'牌墙充足、听口明显更宽、升级潜力高且对手威胁低时，拒胡才可能重新有利。'
+      },
+      {
+        number:'案例 09 · 换三张', title:'十一张体系反而不要硬保', status:'千世界支持',
+        situation:'换三张阶段 · 万字体系已有11张，但外门只有2张',
+        tiles:[['1m','pairs'],['1m','pairs'],['2m','target'],['4m','target'],['5m','target'],['8m','target'],['9m','target'],['7p','weak'],['4s','weak'],['E','weak'],['W','weak'],['R','wild'],['G','weak']],
+        breakAfter:6, legend:[['target','万子主体'],['pairs','主体对子'],['weak','孤张'],['wild','红中']],
+        question:'必须换同类三张，应换哪一包？', choices:['换二四八万','换东、西、发','拆一万对子','随机换字牌'],
+        answer:1, recommendedTiles:[9,10,12], recommendation:'推荐：换东、西、发，回归牌效率',
+        reason:'外门不足3张时，强保表面浓度会被迫拆主体数牌。当前固定牌面中牌效率换法平均高1.548点。',
+        reversal:'字牌已有对子或刻子价值，而主体数牌只是弱孤张时，结论可能反转。'
+      },
+      {
+        number:'案例 10 · 路线承诺', title:'碰过以后清不清最后外门', status:'千世界支持',
+        situation:'已有一筒明碰 · 手牌只剩一张外门八万',
+        tiles:[['1p','complete'],['1p','complete'],['1p','complete'],['8m','weak'],['1p','target'],['3p','target'],['3p','target'],['4p','target'],['8p','target'],['E','pairs'],['E','pairs'],['R','wild'],['R','wild'],['R','wild']],
+        breakAfter:2, legend:[['complete','公开副露'],['weak','最后一张外门'],['target','目标门结构'],['pairs','字牌对子'],['wild','红中结构']],
+        question:'此时打八万锁混一色，还是打八筒保留弹性？', choices:['打八万锁混一色','打八筒保留弹性','拆东对','打红中'],
+        answer:0, recommendedTiles:[3], recommendation:'推荐：打八万，清掉最后外门',
+        reason:'已有目标门副露说明路线承诺已经发生。当前固定牌面锁混一色平均高3.190点。',
+        reversal:'外门本身是完成面子、目标体系仍有多个缺口，或红中必须作赖子导致点炮渠道变化时重新比较。'
+      },
+      {
+        number:'案例 11 · 结果偏差', title:'晚盘碰听更快，就一定更好吗', status:'固定核心1000世界',
+        situation:'第62巡 · 牌墙剩28张 · 对手打出九万',
+        tiles:[['3m','pairs'],['3m','pairs'],['8m','complete'],['8m','complete'],['8m','complete'],['9m','pairs'],['9m','pairs'],['9p','pairs'],['9p','pairs'],['3s','weak'],['8s','pairs'],['8s','pairs'],['R','wild']],
+        breakAfter:6, incoming:['9m','pairs'], legend:[['complete','豪华种子'],['pairs','多个对子'],['wild','红中'],['weak','待配单张']],
+        question:'原始单局中过牌输了25点，现在应该改成碰九万吗？', choices:['碰，晚盘先求胡','仍过牌，保留七对','只看这局输赢','随机选择'],
+        answer:1, recommendedTiles:[2,3,4,12], recommendation:'推荐：仍然过牌，保留七对结构',
+        reason:'同核心1000个配对世界中，过牌均分22.721，碰牌10.087，过牌高12.634点。碰牌胡率更高，但破坏豪华七对造成的收益损失更大。',
+        reversal:'真实可见牌显示七对目标接近绝张，或碰后形成更高底分宽听时重新比较。本证据缺失的公开弃牌历史经过重新采样。'
+      },
+      {
+        number:'案例 12 · 豪华资产', title:'四张相同，还要碰七筒吗', status:'固定核心1000世界',
+        situation:'第42巡 · 牌墙剩42张 · 对手打出七筒',
+        tiles:[['4m','complete'],['4m','complete'],['4m','complete'],['4m','complete'],['7p','pairs'],['7p','pairs'],['2s','pairs'],['2s','pairs'],['3s','weak'],['4s','pairs'],['4s','pairs'],['7s','weak'],['R','wild']],
+        breakAfter:5, incoming:['7p','pairs'], legend:[['complete','天然豪华资产'],['pairs','对子'],['wild','红中'],['weak','待配单张']],
+        question:'碰七筒能够提速，是否应该碰？', choices:['碰七筒转明刻路线','过牌保豪华七对','杠四万','打红中'],
+        answer:1, recommendedTiles:[0,1,2,3,12], recommendation:'推荐：过牌，保护豪华七对资产',
+        reason:'1000个固定核心世界中，过牌均分35.095，碰牌11.110，过牌高23.985点。四张相同在七对体系中是两个对子和豪华资产，不是杠牌或碰牌理由。',
+        reversal:'碰后直接形成混一色碰碰胡高分近听，或豪华目标牌已大量可见时重新比较。'
+      },
+      {
+        number:'案例 13 · 明杠边界', title:'明杠曾经输过，还应该杠吗', status:'固定核心1000世界',
+        situation:'第18巡 · 牌墙剩67张 · 对手打出第四张六万',
+        tiles:[['2m','complete'],['3m','complete'],['4m','complete'],['6m','target'],['6m','target'],['6m','target'],['3p','weak'],['4p','weak'],['7s','weak'],['R','wild'],['B','complete'],['B','complete'],['B','complete']],
+        breakAfter:5, incoming:['6m','target'], highlightIncoming:true, legend:[['complete','完成结构'],['target','可明杠六万'],['wild','红中'],['weak','待处理结构']],
+        question:'原始单局明杠少赢29点，应改成只碰吗？', choices:['明杠六万','只碰六万','过牌','只按单局结果决定'],
+        answer:0, recommendedTiles:[3,4,5], recommendation:'推荐：当前牌面明杠六万',
+        reason:'固定核心1000世界中，明杠均分11.788，碰牌8.532，明杠高3.256点；明杠分支产生145次杠开，碰牌分支83次。一次补牌失败不等于动作负EV。',
+        reversal:'杠后有效张明显减少、对手已有公开高分威胁，或牌墙更短时，碰牌可能更稳。'
       }
     ];
 
