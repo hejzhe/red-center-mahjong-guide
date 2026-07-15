@@ -334,7 +334,7 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 案例训练版 v0.3</p>
+      <p>高期望收益攻略 · 案例训练版 v0.4</p>
     </header>
 
     <nav class="nav" aria-label="案例导航">
@@ -375,7 +375,7 @@
       <button class="reveal" type="button" id="reveal">查看解析</button>
     </article>
 
-    <footer>当前包含13个案例 · 模拟支持只适用于对应牌面与边界</footer>
+    <footer>当前包含15个案例 · 模拟支持只适用于对应牌面与边界</footer>
   </main>
 
   <script>
@@ -517,6 +517,26 @@
         answer:0, recommendedTiles:[3,4,5], recommendation:'推荐：当前牌面明杠六万',
         reason:'固定核心1000世界中，明杠均分11.788，碰牌8.532，明杠高3.256点；明杠分支产生145次杠开，碰牌分支83次。一次补牌失败不等于动作负EV。',
         reversal:'杠后有效张明显减少、对手已有公开高分威胁，或牌墙更短时，碰牌可能更稳。'
+      },
+      {
+        number:'案例 14 · 反转上篇', title:'胡张全见，就该立刻碰吗', status:'固定核心1000世界',
+        situation:'牌墙剩28张 · 七对胡张8万、3条、红中均已全部可见 · 对手打九万',
+        tiles:[['3m','pairs'],['3m','pairs'],['8m','complete'],['8m','complete'],['8m','complete'],['9m','pairs'],['9m','pairs'],['9p','pairs'],['9p','pairs'],['3s','weak'],['8s','pairs'],['8s','pairs'],['R','wild']],
+        breakAfter:6, incoming:['9m','pairs'], legend:[['complete','豪华种子'],['pairs','对子结构'],['wild','红中赖子'],['weak','当前胡张已枯竭']],
+        question:'当前七对胡张已经全部看见，还要过牌保七对吗？', choices:['碰九万立即转听','过牌等待重组','打红中','只按胡张是否全见决定'],
+        answer:1, recommendedTiles:[2,3,4,12], recommendation:'推荐：仍然过牌，保留高分重组',
+        reason:'牌墙仍有28张时，过牌均分10.443，碰牌8.343，过牌高2.100点。碰牌虽然多胡222局，但豪华七对与后续重组的收益仍能覆盖速度差。',
+        reversal:'当牌墙只剩8张且碰后真正进入听牌时，同一手牌结论会反转。'
+      },
+      {
+        number:'案例 15 · 反转下篇', title:'同一手牌，最后8张还要守七对吗', status:'固定核心1000世界',
+        situation:'牌墙只剩8张 · 七对胡张8万、3条、红中均已全部可见 · 对手打九万',
+        tiles:[['3m','pairs'],['3m','pairs'],['8m','complete'],['8m','complete'],['8m','complete'],['9m','pairs'],['9m','pairs'],['9p','pairs'],['9p','pairs'],['3s','weak'],['8s','pairs'],['8s','pairs'],['R','wild']],
+        breakAfter:6, incoming:['9m','target'], highlightIncoming:true, legend:[['complete','豪华种子'],['pairs','对子结构'],['wild','红中赖子'],['weak','当前胡张已枯竭'],['target','碰后进入听牌']],
+        question:'牌墙缩短到8张，现在碰九万还是继续过？', choices:['碰九万立即听牌','过牌继续追豪华','两者完全相同','仍只看七对底分'],
+        answer:0, recommendedTiles:[5,6], recommendation:'推荐：碰九万，兑现最后的成牌机会',
+        reason:'牌墙只剩8张时，碰牌均分2.467，过牌1.518，碰牌高0.949点。过牌只胡35局，已经没有足够时间重组；碰后真听的速度价值反超豪华尾部。',
+        reversal:'8至28张之间的精确切换位置尚未确定，不能把“剩8张”推广成所有牌面的固定阈值。'
       }
     ];
 
