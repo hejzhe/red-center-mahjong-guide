@@ -390,7 +390,7 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 案例训练版 v0.9</p>
+      <p>高期望收益攻略 · 案例训练版 v1.0</p>
       <nav class="resource-links" aria-label="站点导航">
         <a class="quick-link" href="textbook.html">教学手册</a>
         <a class="quick-link active" href="index.html">案例训练</a>
@@ -441,7 +441,7 @@
       <button class="reveal" type="button" id="reveal">查看解析</button>
     </article>
 
-    <footer>当前包含20个案例 · 进度仅保存在本机 · 模拟支持只适用于对应牌面与边界</footer>
+    <footer>当前包含32个案例 · 进度仅保存在本机 · 模拟支持只适用于对应牌面与边界</footer>
   </main>
 
   <script>
@@ -653,6 +653,126 @@
         answer:1, recommendedTiles:[0,1,3,4,6,7,8,9,11,12], recommendation:'推荐：过牌，保留门清混一色七对',
         reason:'4000个配对世界中，过牌均分7.012，碰牌5.951，过牌高1.061点。无码七对可点炮，门清收益渠道与高分尾部共同占优。',
         reversal:'碰后直接形成更高质量听牌，或七对有效张已大量可见时，结论可能反转。'
+      },
+      {
+        number:'案例 21 · 四对碰牌', title:'四对无红中，顺子和两面都很好', status:'1000世界支持',
+        situation:'门清 · 四个对子 · 对手打出第三张东',
+        tiles:[['1m','pairs'],['1m','pairs'],['4m','pairs'],['4m','pairs'],['7p','pairs'],['7p','pairs'],['2s','complete'],['3s','complete'],['4s','complete'],['5s','target'],['6s','target'],['E','pairs'],['E','pairs']],
+        breakAfter:5, incoming:['E','target'], highlightIncoming:true, legend:[['pairs','四个对子'],['complete','完成顺子'],['target','两面与碰牌机会']],
+        question:'四对已经可以考虑七对，现在要碰东吗？', choices:['碰东，利用现有普通结构提速','过牌，四对必须做七对','拆七筒对子','只看东还剩几张'],
+        answer:0, recommendedTiles:[11,12], recommendation:'推荐：碰东，当前普通结构更适合提速',
+        reason:'四对只是七对候选。这手无红中，同时已有234条和56条两面；1000个配对世界中，碰牌均分3.275，过牌2.222，碰牌高1.053点。',
+        reversal:'加入红中后七对进入一向听以内，或对子与颜色形成高价值叠加时，应重新比较。'
+      },
+      {
+        number:'案例 22 · 五对碰牌', title:'五对无红中，花色分散要不要碰', status:'1000世界支持',
+        situation:'门清 · 五对无红中 · 对手打出第三张东',
+        tiles:[['1m','pairs'],['1m','pairs'],['4m','pairs'],['4m','pairs'],['7p','pairs'],['7p','pairs'],['2s','pairs'],['2s','pairs'],['3s','weak'],['6s','weak'],['E','pairs'],['E','pairs'],['N','weak']],
+        breakAfter:5, incoming:['E','pairs'], legend:[['pairs','五个对子'],['weak','三张待配单张']],
+        question:'花色并不集中，是否应该碰东转碰碰胡？', choices:['碰东，花色分散就放弃七对','过牌，保留无码七对','拆一万对子','只看当前巡数'],
+        answer:1, recommendedTiles:[0,1,2,3,4,5,6,7,10,11], recommendation:'推荐：过牌，保留无码七对',
+        reason:'五对已是七对一向听，而且没有用赖子，成牌后保留点炮资格。1000个配对世界中，过牌均分4.971，碰牌3.024，过牌高1.947点。',
+        reversal:'如果碰后能够真正直接听牌，速度收益可以推翻保护七对。'
+      },
+      {
+        number:'案例 23 · 五对反转', title:'五对不是永远不碰：碰后直接听牌', status:'1000世界支持',
+        situation:'门清 · 五个对子 · 对手打出五筒',
+        tiles:[['2m','target'],['3m','target'],['2p','pairs'],['2p','pairs'],['3p','pairs'],['3p','pairs'],['4p','pairs'],['4p','pairs'],['5p','pairs'],['5p','pairs'],['2s','weak'],['5s','pairs'],['5s','pairs']],
+        breakAfter:6, incoming:['5p','target'], highlightIncoming:true, legend:[['pairs','五个对子'],['target','碰后直接听牌'],['weak','碰后处理二条']],
+        question:'五对通常偏过牌，这一次还要保护七对吗？', choices:['碰五筒，直接进入听牌','过牌，五对一律做七对','拆五条对子','等下一次碰牌'],
+        answer:0, recommendedTiles:[8,9], recommendation:'推荐：碰五筒，兑现直接进听',
+        reason:'“碰后真正听牌”是五对碰牌的强反转条件。1000个配对世界中，碰牌均分6.919，过牌4.247，碰牌高2.672点。',
+        reversal:'若碰后并未真正听牌，或过牌已经拥有更高价值听牌，不能套用本题。'
+      },
+      {
+        number:'案例 24 · 换三张', title:'九张目标体系，但杂色分成二加二', status:'4000世界支持',
+        situation:'换三张 · 万子加字牌为目标体系 · 无法整包清杂',
+        tiles:[['1m','weak'],['2m','weak'],['3m','target'],['3m','target'],['7m','weak'],['8m','target'],['3p','weak'],['7p','weak'],['4s','weak'],['5s','weak'],['G','weak'],['B','pairs'],['B','pairs']],
+        breakAfter:5, legend:[['target','主体有效结构'],['pairs','白板对子'],['weak','候选换牌']],
+        question:'只能在两种有损交换包中选择，换哪三张？', choices:['换一万、二万、七万','换发、白、白','换三筒、七筒、四条','拆三万对子'],
+        answer:0, recommendedTiles:[0,1,4], recommendation:'推荐：换一万、二万、七万，保护白板对子',
+        reason:'没有整包杂色可清时，要比较三张包的总结构价值。4000个配对世界中，策略包均分-0.427，换发白白为-0.858，前者高0.432点；优势来自高分尾部，不是胡牌次数。',
+        reversal:'主体数牌形成完整面子、白板对子活度下降，或换后标准向听明显恶化时，应重新比较。'
+      },
+      {
+        number:'案例 25 · 换三张', title:'为了塑形，能不能换走完整顺子', status:'4000世界支持',
+        situation:'换三张 · 条子加字牌为目标体系 · 外门有789万',
+        tiles:[['7m','complete'],['8m','complete'],['9m','complete'],['1p','weak'],['7p','weak'],['5s','target'],['5s','target'],['6s','target'],['7s','target'],['E','target'],['S','pairs'],['S','pairs'],['N','target']],
+        breakAfter:4, legend:[['complete','外门完整顺子'],['target','目标体系'],['pairs','南风对子'],['weak','另一候选包']],
+        question:'完整顺子通常很珍贵，这手应该换哪一包？', choices:['换789万，集中条子与字牌','换东南南，保留所有数牌','换一筒七筒北','暂时不定路线'],
+        answer:0, recommendedTiles:[0,1,2], recommendation:'推荐：换789万，主动塑形',
+        reason:'目标门已有成组结构并有字牌对子，完整顺子也可能成为可接受的路线成本。4000个配对世界中，换789万比换东南南平均高0.672点。',
+        reversal:'目标门有效张更少、字牌对子接近绝张，或换回包分布发生明显偏移时，结论可能反转。'
+      },
+      {
+        number:'案例 26 · 换三张', title:'对子密集时，完整顺子也可能让路', status:'4000世界支持',
+        situation:'换三张 · 筒子加字牌为目标体系 · 同时有三个对子',
+        tiles:[['3m','complete'],['4m','complete'],['5m','complete'],['1p','weak'],['7p','pairs'],['7p','pairs'],['1s','weak'],['8s','weak'],['S','pairs'],['S','pairs'],['N','pairs'],['N','pairs'],['R','wild']],
+        breakAfter:5, legend:[['complete','外门完整顺子'],['pairs','三个对子'],['wild','红中'],['weak','目标与杂色散张']],
+        question:'为了保留普通胡效率，应该留下345万吗？', choices:['换345万，保留复合高价值胚子','换一筒、七筒、七筒','换一条、八条、红中','拆南风对子'],
+        answer:0, recommendedTiles:[0,1,2], recommendation:'推荐：换345万，保留颜色与对子双重集中',
+        reason:'三个对子、红中与颜色集中同时出现时，混一色和七对尾部可以覆盖普通胡率损失。4000个配对世界中，换345万平均高1.063点。',
+        reversal:'对子减少、红中缺失或目标门搭子质量变差时，完整顺子的普通效率会重新上升。'
+      },
+      {
+        number:'案例 27 · 开局与中盘', title:'两个字牌对子，外门都只是弱散张', status:'4000世界支持',
+        situation:'摸牌后14张 · 万子加字牌10张 · 尚未副露',
+        tiles:[['2m','target'],['3m','target'],['4m','target'],['7m','target'],['9m','target'],['5p','weak'],['9p','weak'],['5s','weak'],['9s','weak'],['E','pairs'],['E','pairs'],['S','pairs'],['S','pairs'],['N','target']],
+        breakAfter:6, legend:[['target','混一色目标体系'],['pairs','两个字牌对子'],['weak','外门弱散张']],
+        question:'打九筒推进混一色，还是打北保留普通弹性？', choices:['打九筒，拆外门弱散张','打北，保留所有数牌','拆东对','拆南对'],
+        answer:0, recommendedTiles:[6], recommendation:'推荐：打九筒，推进混一色',
+        reason:'真正的边界是外门结构质量。两个字牌对子已有成组价值，而外门只是5、9弱散张；4000个配对世界中，打九筒平均高0.373点。',
+        reversal:'如果外门改成完整顺子或强两面，结论可能变为实用接近，甚至转向先打单字。'
+      },
+      {
+        number:'案例 28 · 红中处理', title:'为了四码，能不能从听牌退回一向听', status:'1000世界支持',
+        situation:'低分鸡胡 · 红中参与当前听牌结构 · 摸牌后14张',
+        tiles:[['1m','weak'],['6m','target'],['8m','target'],['3p','complete'],['4p','complete'],['5p','complete'],['7p','complete'],['8p','complete'],['9p','complete'],['5s','pairs'],['5s','pairs'],['8s','target'],['9s','target'],['R','wild']],
+        breakAfter:6, legend:[['complete','完成面子'],['pairs','对子'],['wild','维持听牌的红中'],['weak','推荐弃牌']],
+        question:'鸡胡只有2点，是否应该打红中争取无码四码？', choices:['打一万，保留红中听牌','打红中，退回一向听争四码','拆五条对子','只按码数决定'],
+        answer:0, recommendedTiles:[0], recommendation:'推荐：打一万，保留红中与听牌',
+        reason:'码收益不能补偿整整一向听的速度损失。1000个配对世界中，留红中均分5.657，打红中0.875，留中高4.782点。',
+        reversal:'只有打红中完全不降低向听、有效张和胡牌渠道时，才值得把四码收益放到主要比较层。'
+      },
+      {
+        number:'案例 29 · 红中处理', title:'高分复合牌，更不能为四码退听', status:'1000世界支持',
+        situation:'混一色碰碰胡近形 · 红中参与结构 · 摸牌后14张',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['2m','complete'],['2m','complete'],['2m','complete'],['3m','weak'],['9m','target'],['E','complete'],['E','complete'],['E','complete'],['R','wild'],['G','pairs'],['G','pairs']],
+        breakAfter:6, legend:[['complete','三组刻子'],['pairs','发牌对子'],['wild','红中参与高分结构'],['weak','推荐弃牌']],
+        question:'打红中恢复点炮资格和四码，还是留中直接听牌？', choices:['打三万，留红中直接听牌','打红中，恢复点炮与四码','拆发对','打九万'],
+        answer:0, recommendedTiles:[6], recommendation:'推荐：打三万，保留红中',
+        reason:'高底分复合牌更重视成牌速度。1000个配对世界中，留红中均分28.623，打红中16.507，留中高12.116点。',
+        reversal:'若打红中仍保持同等高分听牌，或红中完全不参与结构，点炮资格与四码才可能改变选择。'
+      },
+      {
+        number:'案例 30 · 红中处理', title:'恢复七对点炮资格，值得退一向听吗', status:'1000世界支持',
+        situation:'赖子七对当前听牌 · 摸牌后14张 · 红中代替缺失牌',
+        tiles:[['1m','pairs'],['1m','pairs'],['3m','weak'],['4m','pairs'],['4m','pairs'],['6p','pairs'],['6p','pairs'],['7p','pairs'],['7p','pairs'],['9p','weak'],['2s','pairs'],['2s','pairs'],['E','weak'],['R','wild']],
+        breakAfter:6, legend:[['pairs','五个自然对子'],['wild','赖子七对关键牌'],['weak','待处理单张']],
+        question:'打红中可恢复无码七对点炮资格，现在要这样做吗？', choices:['打九筒，保留赖子七对听牌','打红中，退一向听换点炮资格','拆二条对子','碰东'],
+        answer:0, recommendedTiles:[9], recommendation:'推荐：打九筒，保留赖子七对听牌',
+        reason:'无码七对可点炮确实有价值，但不足以补偿从听牌退回一向听。1000个配对世界中，留中均分15.093，打中4.969，留中高10.124点。',
+        reversal:'若打红中后仍保持听牌、有效张接近且不降低豪华或叠加牌型，才应重新比较。'
+      },
+      {
+        number:'案例 31 · 听牌选择', title:'十一张六点听，还是八张十二点听', status:'1000世界支持',
+        situation:'混一色牌面 · 两种弃牌都立即听牌',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['2m','complete'],['2m','complete'],['2m','complete'],['3m','complete'],['3m','complete'],['3m','complete'],['4m','weak'],['5m','target'],['5m','target'],['E','pairs'],['E','pairs']],
+        breakAfter:6, legend:[['complete','三个暗刻'],['pairs','东风对子'],['weak','高分分支弃牌'],['target','宽听分支弃牌']],
+        question:'两边都听牌，应该选择哪一种？', choices:['打四万，八张混一色碰碰胡听','打五万，十一张普通混一色听','拆东对','一律选听口更多'],
+        answer:0, recommendedTiles:[9], recommendation:'推荐：打四万，保留12点的八张听',
+        reason:'听口不能脱离底分比较。1000个配对世界中，八张12点听均分21.061，十一张6点听13.692，高分窄听高7.369点。',
+        reversal:'若高分听口的真实剩余张显著减少、危险牌更高，或宽听分支也能提升底分，结论可能反转。'
+      },
+      {
+        number:'案例 32 · 防守权衡', title:'确定点一份12点，反而可能是较小损失', status:'1000世界支持',
+        situation:'完全已知状态的风险基准 · 七万确定点炮 · 九筒会放杠',
+        tiles:[['7m','danger'],['2p','weak'],['5p','weak'],['8p','weak'],['9p','danger'],['1s','weak'],['4s','weak'],['7s','weak'],['E','weak'],['S','weak'],['W','weak'],['N','weak'],['R','wild'],['G','weak']],
+        breakAfter:6, legend:[['danger','两种已知危险牌'],['wild','红中'],['weak','其余手牌']],
+        question:'七万立即点12点，九筒则给高分对手明杠，应打哪张？', choices:['打七万，支付确定的一份12点','打九筒，先避免直接点炮','打红中','两种风险完全相同'],
+        answer:0, recommendedTiles:[0], recommendation:'推荐：在这个完全已知状态下打七万',
+        reason:'放杠后的补牌、自摸及杠开包三家形成更高尾部风险。1000个配对世界中，打七万均分-14.474，打九筒-17.444，前者少损失2.970点。',
+        reversal:'这是完全已知状态的风险基准。实战通常不知道对手是否暗刻，必须按放杠的条件概率折价，绝不能照搬成“宁可点炮”。'
       }
     ];
 
@@ -678,10 +798,11 @@
     function categoryFor(data) {
       const marker = data.number;
       if (marker.includes('换三张')) return '换三张';
-      if (marker.includes('开局路线') || marker.includes('路线承诺')) return '开局与中盘';
+      if (marker.includes('开局路线') || marker.includes('路线承诺') || marker.includes('开局与中盘')) return '开局与中盘';
       if (marker.includes('规则边界')) return '规则';
-      if (marker.includes('早盘拒胡') || marker.includes('终局收胡')) return '听牌';
-      if (marker.includes('终局防守')) return '防守';
+      if (marker.includes('红中处理')) return '红中';
+      if (marker.includes('早盘拒胡') || marker.includes('终局收胡') || marker.includes('听牌选择')) return '听牌';
+      if (marker.includes('终局防守') || marker.includes('防守权衡')) return '防守';
       if (marker.includes('杠牌') || marker.includes('明杠') || marker.includes('抢杠')) return '杠牌';
       if (marker.includes('豪华升级') || marker.includes('暗杠反转')) return '七小对';
       return '碰牌';

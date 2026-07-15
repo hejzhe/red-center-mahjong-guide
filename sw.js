@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mahjong-guide-v11';
+const CACHE_NAME = 'mahjong-guide-v12';
 const ASSETS = ['./', './index.html', './textbook.html', './quick-reference.html', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
