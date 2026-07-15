@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>红中麻将牌桌速查</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17352e;
+      --muted: #65746d;
+      --felt: #173f35;
+      --paper: #f6f1df;
+      --line: #d2d9d1;
+      --gold: #bd8b3c;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--felt); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(155deg, #173f35, #102f28);
+      font-family: "Songti SC", "Noto Serif SC", "STSong", serif;
+    }
+    main {
+      width: min(760px, 100%);
+      margin: 0 auto;
+      padding: max(20px, env(safe-area-inset-top)) 12px max(30px, env(safe-area-inset-bottom));
+    }
+    header { padding: 4px 4px 20px; color: #f7f3df; }
+    header a { color: #f7f3df; font-family: "PingFang SC", sans-serif; text-decoration: none; }
+    h1 { margin: 13px 0 5px; font-size: clamp(26px, 7vw, 40px); font-weight: 600; }
+    header p { margin: 0; color: rgba(247,243,223,.72); font-family: "PingFang SC", sans-serif; font-size: 13px; }
+    .card {
+      margin-bottom: 12px;
+      padding: 20px;
+      background: var(--paper);
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.17);
+    }
+    h2 { margin: 0 0 12px; font-size: 21px; }
+    h3 { margin: 16px 0 7px; font-size: 16px; }
+    p, li, td, th { line-height: 1.6; }
+    p { margin: 7px 0; }
+    ul { margin: 0; padding-left: 1.2em; }
+    li + li { margin-top: 5px; }
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      color: var(--felt);
+      background: #dce9df;
+      border-radius: 999px;
+      font-family: "PingFang SC", sans-serif;
+      font-size: 12px;
+    }
+    .mantra {
+      padding: 14px;
+      border-left: 4px solid var(--gold);
+      background: rgba(255,255,255,.5);
+      font-weight: 600;
+      line-height: 1.8;
+    }
+    table { width: 100%; border-collapse: collapse; font-family: "PingFang SC", sans-serif; font-size: 13px; }
+    th, td { padding: 9px 7px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); }
+    small { color: var(--muted); font-family: "PingFang SC", sans-serif; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="index.html">‹ 返回案例训练</a>
+      <h1>牌桌速查</h1>
+      <p>正式攻略 v1.0 · 手机精简版</p>
+    </header>
+
+    <section class="card">
+      <span class="tag">总纲</span>
+      <div class="mantra">差牌求快，好牌做大；混一色看成组，七对看对子红中；碰碰胡顺势叠加，清一色自然升级。</div>
+    </section>
+
+    <section class="card">
+      <h2>换三张</h2>
+      <ul>
+        <li>三张整包比较，不逐张找最差。</li>
+        <li>优先保护对子、暗刻、完整面子、强两面和红中结构。</li>
+        <li>8至9张目标体系进入混一色评估，但这是经验性初版，不是硬阈值。</li>
+        <li>10至11张体系若外门不足3张，不要为了表面浓度被迫拆主体。</li>
+        <li>换回后立即重评，不死守换前计划。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>路线判断</h2>
+      <table>
+        <thead><tr><th>局面</th><th>默认倾向</th></tr></thead>
+        <tbody>
+          <tr><td>单字多，外门有顺子/两面</td><td>先打单字</td></tr>
+          <tr><td>4对无红中</td><td>七对候选，不锁死</td></tr>
+          <tr><td>4对加红中</td><td>偏七对</td></tr>
+          <tr><td>5对无红中</td><td>多数过牌；碰后真听可反转</td></tr>
+          <tr><td>混一色已有副露</td><td>提高路线承诺，优先清最后外门</td></tr>
+          <tr><td>清一色只比混一色多2点</td><td>自然升级，不硬追</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>碰与杠</h2>
+      <h3>碰前四问</h3>
+      <ul>
+        <li>碰后是否真正少一向听，尤其是否直接听牌？</li>
+        <li>是否升级碰碰胡或混一色碰碰胡？</li>
+        <li>不碰是否保留七对一向听、红中或豪华资产？</li>
+        <li>牌墙是否还足够等待门清高分路线？</li>
+      </ul>
+      <h3>杠牌护栏</h3>
+      <ul>
+        <li>七对里的四张相同先当两个对子和豪华资产，不自动杠。</li>
+        <li>暗杠不破坏高分近听时偏杠。</li>
+        <li>补杠检查抢杠；明确必抢时不补，确认无人能抢时偏补。</li>
+        <li>不要把模型中的70.4%抢杠反转点当成现实通用阈值。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>红中与听牌</h2>
+      <ul>
+        <li>先比较向听层级，再比较有效张；进听张不等于胡张。</li>
+        <li>红中让听牌退回一向听时通常保留，不为4码和点炮资格硬打。</li>
+        <li>自然七对无码可点炮；赖子七对只能自摸；鸡胡只能自摸。</li>
+        <li>高分窄听可以胜过低分宽听，但只按具体底分、胡张和渠道比较。</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>终局与防守</h2>
+      <ul>
+        <li>早盘升级明确、墙长时，可以放弃一次低分胡。</li>
+        <li>终局墙短时收下确定收益，不无限等自摸或升级。</li>
+        <li>重点防无码可点炮大牌、确定危险张、第四张放杠和明确抢杠。</li>
+        <li>己方低分、危险张会立即点高分牌且有绝对安全牌时，可以退听。</li>
+      </ul>
+      <p><small>所有“经验性初版”门槛都允许被后续模拟和真实牌局记录推翻。</small></p>
+    </section>
+  </main>
+</body>
+</html>
