@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="红中赖子麻将高期望收益互动教学手册">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>红中赖子麻将教学手册</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17352e;
+      --muted: #65746d;
+      --paper: #f5f0dc;
+      --surface: #fffdf5;
+      --felt: #173f35;
+      --felt-deep: #102f28;
+      --felt-soft: #dce9df;
+      --line: #ced8cf;
+      --gold: #bd8b3c;
+      --rose: #a44841;
+      --blue: #447a88;
+      --shadow: rgba(11, 39, 32, .2);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--felt); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 88% 3%, rgba(189,139,60,.17), transparent 24rem),
+        radial-gradient(circle at 8% 14%, rgba(255,255,255,.08), transparent 22rem),
+        linear-gradient(160deg, var(--felt), var(--felt-deep));
+      font-family: "Songti SC", "Noto Serif SC", "STSong", serif;
+    }
+    button, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .app {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      padding: max(18px, env(safe-area-inset-top)) 14px max(32px, env(safe-area-inset-bottom));
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      padding: 10px 5px 22px;
+      color: #f7f3df;
+    }
+    .masthead small { color: rgba(247,243,223,.68); letter-spacing: .16em; }
+    .masthead h1 {
+      margin: 7px 0 5px;
+      font-size: clamp(28px, 6vw, 47px);
+      font-weight: 600;
+      letter-spacing: .015em;
+    }
+    .masthead p {
+      margin: 0;
+      color: rgba(247,243,223,.74);
+      font-family: "PingFang SC", sans-serif;
+      font-size: 14px;
+    }
+
+    .site-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .site-nav a {
+      padding: 8px 12px;
+      color: #f7f3df;
+      border: 1px solid rgba(247,243,223,.27);
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: "PingFang SC", sans-serif;
+      font-size: 13px;
+    }
+    .site-nav a.active { color: var(--felt); background: #f7f3df; }
+
+    .progress-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 16px 18px;
+      color: #f7f3df;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 17px;
+      font-family: "PingFang SC", sans-serif;
+    }
+    .progress-copy strong { display: block; margin-bottom: 7px; font-size: 14px; }
+    .progress-track { height: 7px; overflow: hidden; background: rgba(255,255,255,.14); border-radius: 999px; }
+    .progress-fill { width: 0; height: 100%; background: linear-gradient(90deg, #dfb968, #f0d796); transition: width .28s ease; }
+    .progress-count { white-space: nowrap; font-size: 13px; }
+
+    .mobile-picker {
+      display: none;
+      width: 100%;
+      min-height: 46px;
+      margin-bottom: 12px;
+      padding: 0 12px;
+      color: #f7f3df;
+      background: #234e43;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 13px;
+      font-family: "PingFang SC", sans-serif;
+    }
+
+    .book-shell { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 14px; align-items: start; }
+
+    .chapters {
+      position: sticky;
+      top: 12px;
+      overflow: hidden;
+      background: rgba(255,253,245,.96);
+      border-radius: 18px;
+      box-shadow: 0 18px 38px rgba(0,0,0,.17);
+    }
+    .chapters-title {
+      padding: 17px 17px 12px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      font-family: "PingFang SC", sans-serif;
+      font-size: 12px;
+      letter-spacing: .12em;
+    }
+    .chapter-button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr) 16px;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 14px;
+      color: var(--ink);
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(206,216,207,.72);
+      cursor: pointer;
+    }
+    .chapter-button:last-child { border-bottom: 0; }
+    .chapter-button.active { background: var(--felt-soft); }
+    .chapter-button .index { color: var(--gold); font-size: 18px; }
+    .chapter-button .label { overflow: hidden; font-family: "PingFang SC", sans-serif; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+    .chapter-button .done { width: 15px; height: 15px; border: 1px solid var(--line); border-radius: 50%; }
+    .chapter-button.completed .done { display: grid; place-items: center; color: white; background: var(--felt); border-color: var(--felt); font-size: 10px; }
+    .chapter-button.completed .done::after { content: "✓"; }
+
+    .paper {
+      min-width: 0;
+      padding: clamp(22px, 5vw, 46px);
+      background:
+        linear-gradient(rgba(255,255,255,.44), rgba(255,255,255,.44)),
+        repeating-linear-gradient(0deg, transparent 0 29px, rgba(23,63,53,.026) 30px);
+      background-color: var(--paper);
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 22px;
+      box-shadow: 0 24px 55px rgba(0,0,0,.2);
+    }
+    .chapter-kicker { color: var(--gold); font-family: "PingFang SC", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .12em; }
+    .paper h2 { margin: 7px 0 10px; font-size: clamp(27px, 5vw, 40px); line-height: 1.18; font-weight: 600; }
+    .chapter-lead { margin: 0 0 22px; color: var(--muted); font-family: "PingFang SC", sans-serif; line-height: 1.7; }
+    .chapter-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .meta-chip, .evidence {
+      padding: 5px 9px;
+      color: var(--felt);
+      background: var(--felt-soft);
+      border-radius: 999px;
+      font-family: "PingFang SC", sans-serif;
+      font-size: 12px;
+    }
+    .evidence { color: #72511e; background: #f0dfb9; }
+
+    .objective {
+      margin: 0 0 24px;
+      padding: 17px 18px;
+      background: rgba(255,255,255,.52);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 13px 13px 0;
+    }
+    .objective strong { display: block; margin-bottom: 8px; }
+    .objective ul { margin: 0; padding-left: 1.2em; }
+    .objective li + li { margin-top: 4px; }
+
+    .lesson { padding: 23px 0; border-top: 1px solid var(--line); }
+    .lesson h3 { margin: 0 0 10px; font-size: 20px; }
+    .lesson p, .lesson li { line-height: 1.82; }
+    .lesson p { margin: 8px 0; }
+    .lesson ul, .lesson ol { margin: 8px 0; padding-left: 1.35em; }
+    .lesson li + li { margin-top: 5px; }
+    .mantra {
+      margin: 14px 0;
+      padding: 13px 15px;
+      color: var(--felt);
+      background: rgba(220,233,223,.72);
+      border-radius: 12px;
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    .example {
+      margin: 4px 0 25px;
+      padding: 18px;
+      background: #fffdf5;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 8px 18px rgba(23,53,46,.07);
+    }
+    .example-label { color: var(--blue); font-family: "PingFang SC", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .08em; }
+    .example h3 { margin: 5px 0 8px; font-size: 19px; }
+    .example p { margin: 7px 0; line-height: 1.75; }
+    .mini-hand { display: flex; flex-wrap: wrap; gap: 4px; margin: 15px 0; }
+    .mini-tile {
+      width: 38px;
+      height: 53px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background: white;
+      border: 1px solid #b9c3bc;
+      border-bottom: 4px solid var(--felt);
+      border-radius: 6px;
+      box-shadow: 0 3px 6px rgba(23,53,46,.12);
+      font-family: "Apple Symbols", "Noto Sans Symbols 2", sans-serif;
+      font-size: 27px;
+    }
+
+    .checkpoint { padding-top: 25px; border-top: 2px solid var(--felt); }
+    .checkpoint-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 15px; }
+    .checkpoint h3 { margin: 0; font-size: 22px; }
+    .quiz-score { color: var(--muted); font-family: "PingFang SC", sans-serif; font-size: 12px; }
+    .quiz-card { margin: 12px 0; padding: 16px; background: rgba(255,255,255,.5); border: 1px solid var(--line); border-radius: 13px; }
+    .quiz-question { margin-bottom: 11px; font-weight: 600; line-height: 1.6; }
+    .quiz-choices { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+    .quiz-choice {
+      min-height: 44px;
+      padding: 9px 11px;
+      color: var(--ink);
+      text-align: left;
+      background: #fffdf5;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: "PingFang SC", sans-serif;
+    }
+    .quiz-choice.correct { color: white; background: #28704f; border-color: #28704f; }
+    .quiz-choice.incorrect { color: white; background: var(--rose); border-color: var(--rose); }
+    .quiz-feedback { margin: 10px 0 0; color: var(--muted); font-family: "PingFang SC", sans-serif; font-size: 13px; line-height: 1.6; }
+
+    .chapter-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 18px; }
+    .action-link, .complete-button, .pager button {
+      min-height: 46px;
+      display: grid;
+      place-items: center;
+      padding: 9px 12px;
+      border-radius: 11px;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: "PingFang SC", sans-serif;
+      font-weight: 600;
+    }
+    .action-link { color: var(--felt); background: transparent; border: 1px solid var(--felt); }
+    .complete-button { color: white; background: var(--felt); border: 1px solid var(--felt); }
+    .complete-button:disabled { opacity: .45; cursor: default; }
+    .complete-button.completed { color: var(--felt); background: var(--felt-soft); }
+    .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 9px; }
+    .pager button { color: var(--ink); background: rgba(255,255,255,.52); border: 1px solid var(--line); }
+    .pager button:disabled { opacity: .38; cursor: default; }
+
+    footer { padding: 18px 4px 0; color: rgba(247,243,223,.62); text-align: center; font-family: "PingFang SC", sans-serif; font-size: 12px; }
+
+    @media (max-width: 760px) {
+      .masthead { grid-template-columns: 1fr; align-items: start; }
+      .site-nav { justify-content: flex-start; }
+      .book-shell { grid-template-columns: 1fr; }
+      .chapters { display: none; }
+      .mobile-picker { display: block; }
+      .paper { border-radius: 18px; }
+    }
+    @media (max-width: 500px) {
+      .app { padding-left: 10px; padding-right: 10px; }
+      .progress-card { grid-template-columns: 1fr; }
+      .progress-count { text-align: right; }
+      .paper { padding: 21px 17px; }
+      .quiz-choices, .chapter-actions { grid-template-columns: 1fr; }
+      .mini-tile { width: 35px; height: 50px; font-size: 25px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .progress-fill { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div>
+        <small>HIGH EV MAHJONG · TEXTBOOK</small>
+        <h1>红中赖子麻将教学手册</h1>
+        <p>九章互动课本 · 理论、例题、小测与案例训练</p>
+      </div>
+      <nav class="site-nav" aria-label="站点导航">
+        <a class="active" href="textbook.html">教学手册</a>
+        <a href="index.html">案例训练</a>
+        <a href="quick-reference.html">牌桌速查</a>
+      </nav>
+    </header>
+
+    <section class="progress-card" aria-label="课程进度">
+      <div class="progress-copy">
+        <strong id="progress-title">课程进度</strong>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <div class="progress-count" id="progress-count"></div>
+    </section>
+
+    <select class="mobile-picker" id="chapter-picker" aria-label="选择章节"></select>
+
+    <div class="book-shell">
+      <aside class="chapters" aria-label="章节目录">
+        <div class="chapters-title">课程目录</div>
+        <div id="chapter-list"></div>
+      </aside>
+
+      <article class="paper" id="chapter" aria-live="polite">
+        <div class="chapter-kicker" id="chapter-kicker"></div>
+        <h2 id="chapter-title"></h2>
+        <p class="chapter-lead" id="chapter-lead"></p>
+        <div class="chapter-meta" id="chapter-meta"></div>
+        <section class="objective" id="objective"></section>
+        <div id="lessons"></div>
+        <section class="example" id="example"></section>
+
+        <section class="checkpoint">
+          <div class="checkpoint-head">
+            <h3>课堂小测</h3>
+            <span class="quiz-score" id="quiz-score"></span>
+          </div>
+          <div id="quiz"></div>
+          <div class="chapter-actions">
+            <a class="action-link" id="practice-link" href="index.html">练对应案例</a>
+            <button class="complete-button" id="complete" type="button">完成本章</button>
+          </div>
+          <div class="pager">
+            <button type="button" id="previous">‹ 上一章</button>
+            <button type="button" id="next">下一章 ›</button>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <footer>学习进度仅保存在当前浏览器 · 网页离线可读 · 经验阈值允许被后续证据修正</footer>
+  </main>
+
+  <script>
+    const tileMap = {
+      '1m':'🀇','2m':'🀈','3m':'🀉','4m':'🀊','5m':'🀋','6m':'🀌','7m':'🀍','8m':'🀎','9m':'🀏',
+      '1p':'🀙','2p':'🀚','3p':'🀛','4p':'🀜','5p':'🀝','6p':'🀞','7p':'🀟','8p':'🀠','9p':'🀡',
+      '1s':'🀐','2s':'🀑','3s':'🀒','4s':'🀓','5s':'🀔','6s':'🀕','7s':'🀖','8s':'🀗','9s':'🀘',
+      'E':'🀀','S':'🀁','W':'🀂','N':'🀃','R':'🀄','G':'🀅','B':'🀆'
+    };
+
+    const chapters = [
+      {
+        number:'第一章', short:'先学会算值不值', title:'先学会算“值不值”', time:'约12分钟', evidence:'规则 + 固定支持', category:'规则',
+        lead:'建立整本书的判断底座：胡得多不一定赚得多，先把向听、底分和胡牌渠道放到同一张表里。',
+        objectives:['区分胡牌率与长期净收益','理解自摸、点炮资格和底分的共同作用','用六步法比较两个听牌'],
+        lessons:[
+          {title:'1. 胡牌率不是最终目标', body:'<p>我们追求的是长期净得分，而不是单独最大化胡牌次数。最简化的思考是：成牌机会乘以成牌价值，再扣除放铳与放杠风险。</p><div class="mantra">多胡不等于多赚；少胡也不等于路线错误。</div>'},
+          {title:'2. 先比较向听，再比较听口', body:'<ol><li>两边是否都已经听牌。</li><li>能否点炮，还是只能自摸。</li><li>扣除可见牌后的真实胡张。</li><li>底分与叠加牌型。</li><li>带红中2码或无码4码。</li><li>对手先胡与放铳风险。</li></ol>'},
+          {title:'3. 胡牌渠道是隐藏价值', body:'<p>鸡胡只能自摸；自然七对没有使用赖子时可以点炮。于是3张自然七对听，可能比7张鸡胡听拥有更高的实际结束牌局能力。</p>'}
+        ],
+        example:{title:'3张自然七对，还是7张鸡胡', tiles:['1m','2m','2m','3m','3m','1p','1p','2p','2p','3p','3p','4p','4s','4s'], text:'打1万形成听4筒的自然七对；打1筒形成鸡胡宽听。当前固定牌面中，自然七对平均高6.810点，因为8点底分和点炮渠道共同反超。'},
+        quiz:[
+          {q:'比较两个方案时，第一步应该看什么？', choices:['哪个牌型名字更大','两边是否处于相同向听层级','哪个有红中','哪个听口看起来更多'], answer:1, why:'进听张不能和摸到即胡的胡张直接相加。'},
+          {q:'无码自然七对能否点炮胡？', choices:['可以','只能自摸','必须先碰','仅终局可以'], answer:0, why:'七对不能碰杠，但未使用红中作赖子时可以点炮。'}
+        ]
+      },
+      {
+        number:'第二章', short:'换三张', title:'换三张：在第一巡之前赢得优势', time:'约15分钟', evidence:'固定支持 + 经验初版', category:'换三张',
+        lead:'换三张不是找三张最小的牌，而是比较整个三张包会怎样重构剩余十张。',
+        objectives:['按整包损失评价换牌','理解8、9、10张只是评估区','保护真正有价值的对子和完成结构'],
+        lessons:[
+          {title:'1. 四项盘点', body:'<ol><li>对子、暗刻、红中和豪华种子。</li><li>最强的一门数牌加字牌。</li><li>是否能完整换走三张同类弱牌。</li><li>换牌是否拆对子、完整面子或强两面。</li></ol>'},
+          {title:'2. 张数不是硬阈值', body:'<p>8张进入混一色评估，9张重点看清杂成本，10至11张反而可能因为外门不足三张而被迫自损。</p><div class="mantra">浓度告诉你方向，整包损失决定你是否值得走。</div>'},
+          {title:'3. 换回后必须重评', body:'<p>换回目标门或字牌可能强化混一色；换回一个新顺子也可能让普通快胡反超。换牌前的计划不是承诺。</p>'}
+        ],
+        example:{title:'11张体系反而不要硬保', tiles:['1m','1m','2m','4m','5m','8m','9m','7p','4s','E','W','R','G'], text:'外门只有两张，无法只换外门。若强保颜色就要拆主体数牌。当前固定牌面支持换东、西、发，回归牌效率，平均高1.548点。'},
+        quiz:[
+          {q:'换三张最重要的评价单位是什么？', choices:['单张牌大小','三张包对剩余结构的总损失','是否有幺九','是否全是字牌'], answer:1, why:'合法交换要求同一类别三张，必须整体比较。'},
+          {q:'目标体系8张且能干净清3张，是否自动做混一色？', choices:['是','否，还要看成组质量和换出牌价值'], answer:1, why:'这是注册表唯一仍开放的边界，不能只凭张数写成口诀。'}
+        ]
+      },
+      {
+        number:'第三章', short:'开局与中盘路线', title:'开局与中盘：路线不是誓言', time:'约14分钟', evidence:'固定支持 + 实用等价', category:'开局与中盘',
+        lead:'学会识别真假混一色，并在牌形不支持时主动止损，而不是为开局计划继续付费。',
+        objectives:['区分普通快胡、混一色、碰碰胡和清一色','给单张字牌正确折价','在中盘判断继续或止损'],
+        lessons:[
+          {title:'1. 混一色看成组，不看总数', body:'<p>目标门成组质量、字牌对子或刻子、清理外门成本、碰碰胡叠加潜力，四项共同决定混一色质量。五张不同单字不是五张稳定资产。</p>'},
+          {title:'2. 碰碰胡顺势形成', body:'<p>已有暗刻、多个活对子，或者本来就在做混一色时，碰碰胡价值上升。普通散牌不要为了6点硬追。</p>'},
+          {title:'3. 清一色自然升级', body:'<p>清一色比混一色只多2点。拆掉字牌对子、放弃碰牌机会并退向听，通常不值得。</p><div class="mantra">差牌求快，好牌叠加；路线可以升级，也必须允许止损。</div>'}
+        ],
+        example:{title:'单字很多的假混一色', tiles:['1m','2m','3m','5m','6m','E','S','W','G','B','4p','5p','6p'], text:'万加字看起来有10张，但五张字全是孤张，456筒已经是完成面子。默认先打无对单字，保留普通快胡结构。'},
+        quiz:[
+          {q:'字牌达到5张，是否足以锁定混一色？', choices:['足够','不够，要看是否成对成刻'], answer:1, why:'单字彼此不能连接，必须折价。'},
+          {q:'已有目标门副露，手牌只剩一张外门孤张时，默认倾向？', choices:['清掉最后外门','继续保留弹性','拆字牌对子'], answer:0, why:'副露已经提高路线承诺，清外门的边际价值上升。'}
+        ]
+      },
+      {
+        number:'第四章', short:'七小对', title:'七小对：候选、保护与反转', time:'约17分钟', evidence:'规则 + 固定支持', category:'七小对',
+        lead:'七对不是见对子就守，也不是碰后听牌就一定碰；真正比较的是门清高分资产与当前确定提速。',
+        objectives:['区分自然七对与赖子七对','理解四对候选和五对保护','识别豪华资产与碰后真听反转'],
+        lessons:[
+          {title:'1. 七对规则', body:'<ul><li>七对不能碰、不能杠。</li><li>无码自然七对可以点炮。</li><li>红中作赖子时只能自摸。</li><li>四张同牌是两个对子单位和一个豪华。</li></ul>'},
+          {title:'2. 四对只是候选', body:'<p>四对无红中仍可根据普通结构选择碰；四对加红中且七对一向听时，保护价值明显提高。五对多数偏过牌。</p>'},
+          {title:'3. 碰后真听是强反转', body:'<p>五对牌面如果碰后真正进入高质量听牌，速度可能覆盖放弃七对的损失。牌墙极短、胡张枯竭时，这个反转更强。</p><div class="mantra">先问碰后是否真听，再谈守不守七对。</div>'}
+        ],
+        example:{title:'五对，但碰后直接听牌', tiles:['2m','3m','2p','2p','3p','3p','4p','4p','5p','5p','2s','5s','5s'], text:'对手打5筒。过牌保留七对一向听；碰后标准牌直接听。当前固定牌面碰牌平均高2.672点，这是“五对偏过”最重要的反转案例。'},
+        quiz:[
+          {q:'四对加一红中、七对一向听，碰后不能听牌，默认？', choices:['碰牌','过牌保护七对'], answer:1, why:'红中提高补对与豪华潜力，碰牌会关闭七对。'},
+          {q:'五对牌面最强的碰牌反转条件？', choices:['对手打字牌','碰后真正进入高质量听牌','没有红中','当前是早盘'], answer:1, why:'确定进听能直接改变剩余成牌机会。'}
+        ]
+      },
+      {
+        number:'第五章', short:'碰与杠', title:'碰与杠：每次副露都在交换未来', time:'约16分钟', evidence:'规则 + 固定支持', category:'杠牌',
+        lead:'碰杠得到速度、固定分和补牌，同时放弃门清路线、隐藏信息或安全性。',
+        objectives:['用五问法判断碰牌','完整计算杠的四项收益','识别破坏牌型、抢杠和放杠尾部'],
+        lessons:[
+          {title:'1. 碰牌五问', body:'<ol><li>是否降低向听或直接听牌。</li><li>是否升级碰碰胡或混一色碰碰胡。</li><li>不碰保留什么七对或豪华资产。</li><li>碰后还剩几个活对子。</li><li>牌墙还有多少时间。</li></ol>'},
+          {title:'2. 杠不只是固定分', body:'<p>杠的收益包括固定杠分、额外补牌、杠开底分翻倍和后续结构变化。一次补牌失败不能证明杠是错误动作。</p>'},
+          {title:'3. 上位风险优先', body:'<p>暗杠关闭豪华七对、补杠被明确抢杠、打第四张触发杠开包三家，都会使结论反转。</p><div class="mantra">先检查牌型与抢杠，再计算固定分与杠开。</div>'}
+        ],
+        example:{title:'同一补杠牌的两个端点', tiles:['9m','9m','9m','9m','1m','2m','3m','4p','5p','6p','7s','8s','E','E'], text:'对手明确能抢九万时持续不补高3.453点；确认无人能抢时补杠高8.202点。风险状态不同，答案完全相反。'},
+        quiz:[
+          {q:'什么最可能使暗杠从好动作反转？', choices:['暗杠牌是幺九','暗杠关闭自然豪华七对听牌','没有红中','对手未碰牌'], answer:1, why:'关闭现成高分合法听牌是上位损失。'},
+          {q:'别人打出第四张形成明杠，固定杠分谁付？', choices:['三家各1点','放杠者一人付3点','庄家付3点'], answer:1, why:'这是本规则明确锁定的明杠结算。'}
+        ]
+      },
+      {
+        number:'第六章', short:'红中处理', title:'红中：先看向听，再看点炮与码', time:'约13分钟', evidence:'规则 + 固定支持', category:'规则',
+        lead:'红中不是永远留，也不是为了4码尽早打；正确顺序是先看向听和结构，再谈收益渠道。',
+        objectives:['区分自然红中和万能赖子','使用红中弃留三问','避免为点炮和4码退一向听'],
+        lessons:[
+          {title:'1. 三种身份', body:'<ul><li>自然红中：作为牌型中的中，不算赖子。</li><li>万能赖子：代替其他牌，只能自摸。</li><li>豪华补位：AAA加红中可视为AAAA。</li></ul><p>胡牌带红中都摸2码，无码胡摸4码。</p>'},
+          {title:'2. 弃留三问', body:'<ol><li>红中是否让当前分支少一整向听。</li><li>是否提升牌型、听口或豪华等级。</li><li>点炮资格与多2码能否补偿速度损失。</li></ol>'},
+          {title:'3. 可以重新考虑打红中的条件', body:'<p>两边同向听、红中不增加有效张、不提升牌型或豪华、打红中安全时，才进入点炮与码的主要比较。</p><div class="mantra">先看向听，再看渠道；不要拿进听张冒充胡张。</div>'}
+        ],
+        example:{title:'两个“11张”并不相等', tiles:['1m','6m','8m','3p','4p','5p','7p','8p','9p','5s','5s','8s','9s','R'], text:'留中打1万直接听牌；打中则退回一向听。虽然两边都能数出11张关键牌，前者是胡张，后者只是进听张。留红中平均高4.782点。'},
+        quiz:[
+          {q:'红中自然组成中中，作为自然七对一对，能否点炮？', choices:['可以，且摸2码','不可以','可以，且摸4码'], answer:0, why:'自然使用不关闭点炮，但带红中仍是2码。'},
+          {q:'红中弃留最先比较什么？', choices:['2码或4码','是否恢复点炮','是否改变向听层级'], answer:2, why:'速度层级的损失通常大于渠道收益。'}
+        ]
+      },
+      {
+        number:'第七章', short:'听牌与收胡', title:'听牌与收胡：宽度、价值和时间', time:'约14分钟', evidence:'固定支持', category:'听牌',
+        lead:'听得宽只是一个变量；牌型底分、点炮资格和剩余时间共同决定是否应该升级或收胡。',
+        objectives:['比较宽听与高分窄听','理解豪华升级边界','区分早盘拒胡与终局收胡'],
+        lessons:[
+          {title:'1. 高分可以覆盖适度缩窄', body:'<p>当前固定牌面中，8张12点混一色碰碰胡听胜过11张6点混一色听；3张自然七对胜过7张鸡胡听。但这些比例不能无限外推。</p>'},
+          {title:'2. 豪华升级要看比例', body:'<p>当前3张8点普通七对缩成1张16点豪华听，追豪华高1.520点。目标接近绝张、牌墙短或缩窄更大时，应重新比较。</p>'},
+          {title:'3. 时间决定是否收胡', body:'<p>早中盘墙长、三个暗刻、升级明确时，可放弃一次6点胡；终局约剩15张、升级有限时，应接受确定6点。</p><div class="mantra">拒胡必须说得出升级、时间和风险三项理由。</div>'}
+        ],
+        example:{title:'11张6点，还是8张12点', tiles:['1m','1m','1m','2m','2m','2m','3m','3m','3m','4m','5m','5m','E','E'], text:'打5万形成11张6点听；打4万形成8张12点听。当前固定牌面后者平均高7.369点，说明底分翻倍可覆盖适度听口损失。'},
+        quiz:[
+          {q:'牌墙约剩15张，可以点炮胡6点，升级空间有限。默认？', choices:['接受胡牌','继续等自摸','改清一色'], answer:0, why:'终局时间不足，确定收益更重要。'},
+          {q:'3张普通七对缩1张豪华听的结果，能否推广到所有牌面？', choices:['可以','不可以，只支持当前比例和边界'], answer:1, why:'剩余张、叠加牌型和墙长都会改变答案。'}
+        ]
+      },
+      {
+        number:'第八章', short:'选择性防守', title:'防守：只防真正可能造成大损失的牌', time:'约12分钟', evidence:'规则 + 固定支持', category:'防守',
+        lead:'这套规则中很多牌型不能点炮，所以防守不能全面缩手；危险必须与合法胡牌渠道一起判断。',
+        objectives:['理解选择性防守','区分点炮、放碰和放杠风险','掌握低分退听的三个条件'],
+        lessons:[
+          {title:'1. 先确认对手能不能点炮', body:'<p>鸡胡、赖子胡和赖子七对不能点炮。优先防无码可点炮的混一色、碰碰胡、清一色与十三幺。</p>'},
+          {title:'2. 三层危险', body:'<ol><li>直接点炮。</li><li>放碰加速。</li><li>放杠后杠开包三家。</li></ol><p>不能只防其中一个，要比较两种弃牌的期望损失。</p>'},
+          {title:'3. 退听三条件', body:'<p>己方收益低、危险高度可信、并且存在真正安全的替代牌时，退听更合理。缺一个条件都不能机械套用。</p><div class="mantra">防守不是怕所有牌，而是避开确定的大损失。</div>'}
+        ],
+        example:{title:'低分近听是否退守', tiles:['4m','5m','6m','7m','1p','2p','3p','2s','3s','7s','8s','9s','S','S'], text:'打7万维持鸡胡听牌，但在完整状态下会立即点12点；5万已见四张绝对安全。当前固定牌面支持打5万退听，平均改善2.707点。'},
+        quiz:[
+          {q:'最值得提高防守优先级的是？', choices:['疑似赖子鸡胡','两组同门或字牌副露且无码的大牌威胁','任何拿到红中的玩家'], answer:1, why:'它同时具备高底分和真实点炮渠道。'},
+          {q:'一张牌可能让对手明杠，是否必须永远扣住？', choices:['是','否，要与直接点炮和安全替代一起比较'], answer:1, why:'扣牌也可能迫使自己打出更高的确定危险。'}
+        ]
+      },
+      {
+        number:'第九章', short:'综合决策', title:'综合决策：把知识变成牌桌顺序', time:'约10分钟', evidence:'综合复习', category:'全部案例',
+        lead:'把前八章压缩成十秒决策卡：先看层级，再看渠道；先算放弃什么，再看能多赚什么。',
+        objectives:['按七阶段复盘一局牌','使用十秒决策卡','用反转条件检查第一反应'],
+        lessons:[
+          {title:'1. 一局牌的七阶段', body:'<ol><li>换三张：数资产、看体系、算整包。</li><li>开局：选一个主线和一个副线。</li><li>中盘：复核路线并止损。</li><li>碰杠：看真进听和关闭的资产。</li><li>红中：先向听后渠道。</li><li>听牌：比较价值、渠道和时间。</li><li>防守：识别真实点炮与放杠尾部。</li></ol>'},
+          {title:'2. 十秒决策卡', body:'<ol><li>我现在几向听？</li><li>两个动作后分别几向听？</li><li>底分和点炮资格怎么变？</li><li>我放弃了哪个资产？</li><li>牌墙还给不给时间？</li><li>有没有确定高损失风险？</li></ol>'},
+          {title:'3. 不背孤立答案', body:'<p>每个案例都要和反转案例成对记：五对过牌对碰后真听；牌墙28张对8张；明确能抢杠对确认无人能抢。</p><div class="mantra">会说反转条件，才算真正学会。</div>'}
+        ],
+        example:{title:'综合判断示范', tiles:['1m','1m','1m','4m','4m','7p','7p','2s','2s','6s','E','E','N'], text:'五个对子单位并有AAA豪华种子，牌墙仍长，碰后不能真听。先确认不碰保留七对、豪华和点炮渠道，再确认碰牌没有兑现听牌，默认过牌。'},
+        quiz:[
+          {q:'遇到任何犹豫，最先问自己？', choices:['哪张牌最危险','我现在几向听，动作后几向听','哪个牌型分数最高'], answer:1, why:'先锁定速度层级，才能比较后面的价值。'},
+          {q:'真正掌握一个案例的标志？', choices:['记住选A还是B','能够说明理由和反转条件','记住模拟种子'], answer:1, why:'牌面条件变化时，孤立答案会失效。'}
+        ]
+      }
+    ];
+
+    const STORAGE_KEY = 'mahjong-textbook-progress-v1';
+    let current = Math.max(0, chapters.findIndex((chapter) => location.hash === `#chapter-${chapters.indexOf(chapter) + 1}`));
+    let state = loadState();
+
+    const $ = (id) => document.getElementById(id);
+
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { completed: [], answers: {} };
+      } catch (error) {
+        return { completed: [], answers: {} };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function chapterKey(index = current) { return String(index); }
+
+    function setupNavigation() {
+      $('chapter-list').replaceChildren();
+      $('chapter-picker').replaceChildren();
+      chapters.forEach((chapter, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'chapter-button';
+        button.innerHTML = `<span class="index">${index + 1}</span><span class="label">${chapter.short}</span><span class="done"></span>`;
+        button.addEventListener('click', () => selectChapter(index));
+        $('chapter-list').appendChild(button);
+
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${chapter.number} · ${chapter.short}`;
+        $('chapter-picker').appendChild(option);
+      });
+    }
+
+    function selectChapter(index) {
+      current = Math.max(0, Math.min(index, chapters.length - 1));
+      history.replaceState(null, '', `#chapter-${current + 1}`);
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderProgress() {
+      const completed = new Set(state.completed || []);
+      const count = completed.size;
+      $('progress-fill').style.width = `${count / chapters.length * 100}%`;
+      $('progress-count').textContent = `已完成 ${count} / ${chapters.length} 章`;
+      [...$('chapter-list').children].forEach((button, index) => {
+        button.classList.toggle('active', index === current);
+        button.classList.toggle('completed', completed.has(chapterKey(index)));
+      });
+      $('chapter-picker').value = current;
+    }
+
+    function renderLessons(chapter) {
+      $('lessons').replaceChildren();
+      chapter.lessons.forEach((lesson) => {
+        const section = document.createElement('section');
+        section.className = 'lesson';
+        section.innerHTML = `<h3>${lesson.title}</h3>${lesson.body}`;
+        $('lessons').appendChild(section);
+      });
+    }
+
+    function renderExample(chapter) {
+      $('example').innerHTML = `<div class="example-label">例题讲解</div><h3>${chapter.example.title}</h3>`;
+      const hand = document.createElement('div');
+      hand.className = 'mini-hand';
+      chapter.example.tiles.forEach((code) => {
+        const tile = document.createElement('div');
+        tile.className = 'mini-tile';
+        tile.setAttribute('aria-label', code);
+        tile.textContent = tileMap[code];
+        hand.appendChild(tile);
+      });
+      $('example').appendChild(hand);
+      const copy = document.createElement('p');
+      copy.textContent = chapter.example.text;
+      $('example').appendChild(copy);
+    }
+
+    function renderQuiz(chapter) {
+      $('quiz').replaceChildren();
+      const answers = state.answers?.[chapterKey()] || {};
+      let correct = 0;
+      chapter.quiz.forEach((item, questionIndex) => {
+        const selected = answers[questionIndex];
+        if (selected === item.answer) correct += 1;
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+        const question = document.createElement('div');
+        question.className = 'quiz-question';
+        question.textContent = `${questionIndex + 1}. ${item.q}`;
+        card.appendChild(question);
+        const choices = document.createElement('div');
+        choices.className = 'quiz-choices';
+        item.choices.forEach((choice, choiceIndex) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'quiz-choice';
+          button.textContent = `${String.fromCharCode(65 + choiceIndex)} ${choice}`;
+          if (selected !== undefined) {
+            button.classList.toggle('correct', choiceIndex === item.answer);
+            button.classList.toggle('incorrect', choiceIndex === selected && selected !== item.answer);
+          }
+          button.addEventListener('click', () => answerQuestion(questionIndex, choiceIndex));
+          choices.appendChild(button);
+        });
+        card.appendChild(choices);
+        if (selected !== undefined) {
+          const feedback = document.createElement('p');
+          feedback.className = 'quiz-feedback';
+          feedback.textContent = `${selected === item.answer ? '回答正确。' : '再看一遍本节。'} ${item.why}`;
+          card.appendChild(feedback);
+        }
+        $('quiz').appendChild(card);
+      });
+      const answered = Object.keys(answers).length;
+      $('quiz-score').textContent = `已答 ${answered}/${chapter.quiz.length} · 答对 ${correct}`;
+      $('complete').disabled = answered < chapter.quiz.length;
+    }
+
+    function answerQuestion(questionIndex, choiceIndex) {
+      const key = chapterKey();
+      state.answers ||= {};
+      state.answers[key] ||= {};
+      state.answers[key][questionIndex] = choiceIndex;
+      saveState();
+      renderQuiz(chapters[current]);
+    }
+
+    function render() {
+      const chapter = chapters[current];
+      $('chapter-kicker').textContent = `${chapter.number} · 互动课本`;
+      $('chapter-title').textContent = chapter.title;
+      $('chapter-lead').textContent = chapter.lead;
+      $('chapter-meta').innerHTML = `<span class="meta-chip">${chapter.time}</span><span class="evidence">${chapter.evidence}</span>`;
+      $('objective').innerHTML = `<strong>本章目标</strong><ul>${chapter.objectives.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+      renderLessons(chapter);
+      renderExample(chapter);
+      renderQuiz(chapter);
+      const completed = new Set(state.completed || []).has(chapterKey());
+      $('complete').classList.toggle('completed', completed);
+      $('complete').textContent = completed ? '✓ 本章已完成' : '完成本章';
+      $('practice-link').href = `index.html?category=${encodeURIComponent(chapter.category)}`;
+      $('practice-link').textContent = chapter.category === '全部案例' ? '进入综合案例' : `练“${chapter.category}”案例`;
+      $('previous').disabled = current === 0;
+      $('next').disabled = current === chapters.length - 1;
+      renderProgress();
+    }
+
+    $('chapter-picker').addEventListener('change', (event) => selectChapter(Number(event.target.value)));
+    $('previous').addEventListener('click', () => selectChapter(current - 1));
+    $('next').addEventListener('click', () => selectChapter(current + 1));
+    $('complete').addEventListener('click', () => {
+      const key = chapterKey();
+      const completed = new Set(state.completed || []);
+      completed.has(key) ? completed.delete(key) : completed.add(key);
+      state.completed = [...completed];
+      saveState();
+      render();
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+
+    setupNavigation();
+    render();
+  </script>
+</body>
+</html>

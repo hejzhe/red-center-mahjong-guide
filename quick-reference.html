@@ -30,6 +30,9 @@
     }
     header { padding: 4px 4px 20px; color: #f7f3df; }
     header a { color: #f7f3df; font-family: "PingFang SC", sans-serif; text-decoration: none; }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+    .site-nav a { padding: 8px 11px; border: 1px solid rgba(247,243,223,.28); border-radius: 999px; font-size: 13px; }
+    .site-nav a.active { color: var(--felt); background: #f7f3df; }
     h1 { margin: 13px 0 5px; font-size: clamp(26px, 7vw, 40px); font-weight: 600; }
     header p { margin: 0; color: rgba(247,243,223,.72); font-family: "PingFang SC", sans-serif; font-size: 13px; }
     .card {
@@ -71,7 +74,11 @@
 <body>
   <main>
     <header>
-      <a href="index.html">‹ 返回案例训练</a>
+      <nav class="site-nav" aria-label="站点导航">
+        <a href="textbook.html">教学手册</a>
+        <a href="index.html">案例训练</a>
+        <a class="active" href="quick-reference.html">牌桌速查</a>
+      </nav>
       <h1>牌桌速查</h1>
       <p>正式攻略 v1.0 · 手机精简版</p>
     </header>

@@ -1,7 +1,7 @@
 {
-  "name": "红中赖子麻将案例训练",
+  "name": "红中赖子麻将互动攻略",
   "short_name": "红中麻将攻略",
-  "description": "红中赖子麻将高期望收益攻略案例训练",
+  "description": "红中赖子麻将高期望收益教学手册、案例训练与牌桌速查",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#173f35",

@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="红中麻将攻略">
-  <meta name="description" content="红中赖子麻将高期望收益攻略案例训练测试版">
+  <meta name="description" content="红中赖子麻将高期望收益攻略案例训练">
   <link rel="manifest" href="manifest.webmanifest">
   <title>红中赖子麻将案例训练</title>
   <style>
@@ -77,7 +77,6 @@
 
     .quick-link {
       display: inline-block;
-      margin-top: 12px;
       padding: 8px 12px;
       color: #f7f3df;
       border: 1px solid rgba(247,243,223,.3);
@@ -86,6 +85,9 @@
       font-family: "PingFang SC", sans-serif;
       font-size: 13px;
     }
+
+    .resource-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .quick-link.active { color: var(--felt); background: #f7f3df; }
 
     .nav {
       display: grid;
@@ -388,8 +390,12 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 案例训练版 v0.8</p>
-      <a class="quick-link" href="quick-reference.html">查看牌桌速查表</a>
+      <p>高期望收益攻略 · 案例训练版 v0.9</p>
+      <nav class="resource-links" aria-label="站点导航">
+        <a class="quick-link" href="textbook.html">教学手册</a>
+        <a class="quick-link active" href="index.html">案例训练</a>
+        <a class="quick-link" href="quick-reference.html">牌桌速查</a>
+      </nav>
     </header>
 
     <section class="study-tools" aria-label="练习筛选与进度">
@@ -794,14 +800,21 @@
       render();
     });
 
-    $('category').addEventListener('change', () => {
-      const category = $('category').value;
+    function applyCategory(category) {
       filteredIndices = cases
         .map((data, index) => ({ data, index }))
         .filter(({ data }) => category === '全部案例' || categoryFor(data) === category)
         .map(({ index }) => index);
       current = filteredIndices[0];
       render();
+    }
+
+    $('category').addEventListener('change', () => {
+      const category = $('category').value;
+      const url = new URL(location.href);
+      category === '全部案例' ? url.searchParams.delete('category') : url.searchParams.set('category', category);
+      history.replaceState(null, '', url);
+      applyCategory(category);
     });
 
     if ('serviceWorker' in navigator) {
@@ -809,7 +822,12 @@
     }
 
     setupCategories();
-    render();
+    const requestedCategory = new URLSearchParams(location.search).get('category');
+    const availableCategories = [...$('category').options].map((option) => option.value);
+    if (requestedCategory && availableCategories.includes(requestedCategory)) {
+      $('category').value = requestedCategory;
+    }
+    applyCategory($('category').value);
   </script>
 </body>
 </html>

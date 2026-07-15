@@ -1,5 +1,5 @@
-const CACHE_NAME = 'mahjong-guide-v10';
-const ASSETS = ['./', './index.html', './quick-reference.html', './manifest.webmanifest'];
+const CACHE_NAME = 'mahjong-guide-v11';
+const ASSETS = ['./', './index.html', './textbook.html', './quick-reference.html', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -23,10 +23,10 @@ self.addEventListener('fetch', (event) => {
       fetch(event.request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           return response;
         })
-        .catch(() => caches.match('./index.html'))
+        .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
     );
     return;
   }
