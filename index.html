@@ -388,7 +388,7 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 案例训练版 v0.7</p>
+      <p>高期望收益攻略 · 案例训练版 v0.8</p>
       <a class="quick-link" href="quick-reference.html">查看牌桌速查表</a>
     </header>
 
@@ -435,7 +435,7 @@
       <button class="reveal" type="button" id="reveal">查看解析</button>
     </article>
 
-    <footer>当前包含18个案例 · 进度仅保存在本机 · 模拟支持只适用于对应牌面与边界</footer>
+    <footer>当前包含20个案例 · 进度仅保存在本机 · 模拟支持只适用于对应牌面与边界</footer>
   </main>
 
   <script>
@@ -627,6 +627,26 @@
         answer:0, recommendedTiles:[0,1,2,6], recommendation:'推荐：立即补杠九万',
         reason:'当前无人能抢时，补杠均分9.048，持续不补0.846，补杠高8.202点。收益来自固定杠分、额外补牌、杠开和更高胡率。',
         reversal:'当公开信息使抢杠威胁接近确定时，结论反转为持续不补。当前二状态模型约在70.4%打平，但这不是现实通用阈值。'
+      },
+      {
+        number:'案例 19 · 五对边界', title:'AAA豪华种子，还要碰东吗', status:'4000世界支持',
+        situation:'门清 · 五个对子单位 · 对手打出东',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['4m','pairs'],['4m','pairs'],['7p','pairs'],['7p','pairs'],['2s','pairs'],['2s','pairs'],['6s','weak'],['E','pairs'],['E','pairs'],['N','weak']],
+        breakAfter:6, incoming:['E','pairs'], legend:[['complete','AAA豪华种子'],['pairs','五个对子单位'],['weak','待配单张']],
+        question:'碰东能提高胡牌次数，是否应该碰？', choices:['碰东转碰碰胡','过牌保七对与豪华','只看胡牌率','拆四万对子'],
+        answer:1, recommendedTiles:[0,1,2,3,4,5,6,7,8,10,11], recommendation:'推荐：过牌，保护七对与豪华尾部',
+        reason:'4000个配对世界中，过牌均分7.649，碰牌6.507，过牌高1.142点。碰牌虽然多胡179局，仍未覆盖豪华七对尾部损失。',
+        reversal:'若碰后真正直接听牌，或豪华目标牌已严重枯竭，应重新比较。'
+      },
+      {
+        number:'案例 20 · 五对边界', title:'混一色五对，碰东还是门清', status:'4000世界支持',
+        situation:'门清 · 五对集中于万子和字牌 · 对手打出东',
+        tiles:[['1m','pairs'],['1m','pairs'],['2m','weak'],['4m','pairs'],['4m','pairs'],['6m','weak'],['7m','pairs'],['7m','pairs'],['E','pairs'],['E','pairs'],['N','weak'],['G','pairs'],['G','pairs']],
+        breakAfter:6, incoming:['E','pairs'], legend:[['pairs','混一色七对资产'],['weak','待整理结构']],
+        question:'碰东可以推进明刻路线，是否应该碰？', choices:['碰东做混一色碰碰胡','过牌保混一色七对','拆发对','只看当前向听'],
+        answer:1, recommendedTiles:[0,1,3,4,6,7,8,9,11,12], recommendation:'推荐：过牌，保留门清混一色七对',
+        reason:'4000个配对世界中，过牌均分7.012，碰牌5.951，过牌高1.061点。无码七对可点炮，门清收益渠道与高分尾部共同占优。',
+        reversal:'碰后直接形成更高质量听牌，或七对有效张已大量可见时，结论可能反转。'
       }
     ];
 
