@@ -213,6 +213,8 @@
     .tile[data-group="complete"] { border-bottom-color: var(--felt); }
     .tile[data-group="pairs"] { border-bottom-color: var(--violet); }
     .tile[data-group="wild"] { border-bottom-color: var(--gold); }
+    .tile[data-group="danger"] { border-bottom-color: var(--rose); }
+    .tile[data-group="safe"] { border-bottom-color: var(--gold); }
 
     .tile.recommended {
       transform: translateY(-10px);
@@ -245,6 +247,8 @@
     .mark.complete { background: var(--felt); }
     .mark.pairs { background: var(--violet); }
     .mark.wild { background: var(--gold); }
+    .mark.danger { background: var(--rose); }
+    .mark.safe { background: var(--gold); }
 
     .question {
       margin: 2px 0 14px;
@@ -334,7 +338,7 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 案例训练版 v0.5</p>
+      <p>高期望收益攻略 · 案例训练版 v0.6</p>
     </header>
 
     <nav class="nav" aria-label="案例导航">
@@ -375,7 +379,7 @@
       <button class="reveal" type="button" id="reveal">查看解析</button>
     </article>
 
-    <footer>当前包含17个案例 · 模拟支持只适用于对应牌面与边界</footer>
+    <footer>当前包含18个案例 · 模拟支持只适用于对应牌面与边界</footer>
   </main>
 
   <script>
@@ -553,10 +557,20 @@
         situation:'已有九万明碰 · 公开信息强烈确认对手以九万完成混一色',
         tiles:[['9m','complete'],['9m','complete'],['9m','complete'],['1m','weak'],['2m','target'],['3m','target'],['9m','danger'],['4p','target'],['5p','target'],['6p','target'],['7s','target'],['8s','target'],['E','pairs'],['E','pairs']],
         breakAfter:2, legend:[['complete','已明碰九万'],['danger','手中第四张'],['weak','本次可打一万'],['target','其余结构'],['pairs','东对']],
-        question:'摸到第四张九万，现在补杠还是先不杠？', choices:['立即补杠九万','本次不杠，打一万','拆东对','只看补杠3点'],
-        answer:1, recommendedTiles:[3,6], recommendation:'推荐：本次不补杠，先打一万',
-        reason:'固定对手明确能抢九万时，立即补杠1000次全部被抢；延后当前补杠平均高1.497点。对照机器人以后仍可能再次补杠，因此这是偏保守的收益差。',
-        reversal:'普通未知牌局不能因为“可能有人抢”就取消补杠；只有威胁明确或强烈可推断时适用。永久不补同一张仍待专项实验。'
+        question:'摸到第四张九万，现在补杠还是持续扣住？', choices:['立即补杠九万','持续不补，打一万','拆东对','只看补杠3点'],
+        answer:1, recommendedTiles:[3,6], recommendation:'推荐：持续不补同一张，先打一万',
+        reason:'固定对手明确能抢九万时，立即补杠1000次全部被抢；持续不补同一张平均高3.453点，并保留50次后续胡牌。',
+        reversal:'普通未知牌局不能因为“可能有人抢”就取消补杠；同手牌确认无人能抢时，补杠反而高8.202点。'
+      },
+      {
+        number:'案例 18 · 抢杠反转', title:'同一手牌，无人能抢还扣九万吗', status:'千世界支持',
+        situation:'已有九万明碰 · 当前已确认三家都不能以九万抢杠',
+        tiles:[['9m','complete'],['9m','complete'],['9m','complete'],['1m','weak'],['2m','target'],['3m','target'],['9m','safe'],['4p','target'],['5p','target'],['6p','target'],['7s','target'],['8s','target'],['E','pairs'],['E','pairs']],
+        breakAfter:2, legend:[['complete','已明碰九万'],['safe','当前安全第四张'],['weak','不杠时打一万'],['target','其余结构'],['pairs','东对']],
+        question:'确认当前无人能抢九万，还要长期扣住第四张吗？', choices:['立即补杠九万','持续不补，打一万','拆东对','两者完全相同'],
+        answer:0, recommendedTiles:[0,1,2,6], recommendation:'推荐：立即补杠九万',
+        reason:'当前无人能抢时，补杠均分9.048，持续不补0.846，补杠高8.202点。收益来自固定杠分、额外补牌、杠开和更高胡率。',
+        reversal:'当公开信息使抢杠威胁接近确定时，结论反转为持续不补。当前二状态模型约在70.4%打平，但这不是现实通用阈值。'
       }
     ];
 
