@@ -334,7 +334,7 @@
     <header class="masthead">
       <small>RED CENTER MAHJONG</small>
       <h1>红中赖子麻将案例训练</h1>
-      <p>高期望收益攻略 · 案例训练版 v0.4</p>
+      <p>高期望收益攻略 · 案例训练版 v0.5</p>
     </header>
 
     <nav class="nav" aria-label="案例导航">
@@ -375,7 +375,7 @@
       <button class="reveal" type="button" id="reveal">查看解析</button>
     </article>
 
-    <footer>当前包含15个案例 · 模拟支持只适用于对应牌面与边界</footer>
+    <footer>当前包含17个案例 · 模拟支持只适用于对应牌面与边界</footer>
   </main>
 
   <script>
@@ -537,6 +537,26 @@
         answer:0, recommendedTiles:[5,6], recommendation:'推荐：碰九万，兑现最后的成牌机会',
         reason:'牌墙只剩8张时，碰牌均分2.467，过牌1.518，碰牌高0.949点。过牌只胡35局，已经没有足够时间重组；碰后真听的速度价值反超豪华尾部。',
         reversal:'8至28张之间的精确切换位置尚未确定，不能把“剩8张”推广成所有牌面的固定阈值。'
+      },
+      {
+        number:'案例 16 · 暗杠反转', title:'四张一万，到底是杠还是豪华资产', status:'千世界支持',
+        situation:'门清自然七对结构 · 当前摸牌后可暗杠一万',
+        tiles:[['1m','complete'],['1m','complete'],['1m','complete'],['1m','complete'],['2p','pairs'],['2p','pairs'],['4p','pairs'],['4p','pairs'],['6s','pairs'],['6s','pairs'],['8s','pairs'],['8s','pairs'],['E','weak'],['N','target']],
+        breakAfter:5, legend:[['complete','豪华四张'],['pairs','四个对子'],['weak','可打东'],['target','北单吊']],
+        question:'现在可以暗杠一万，应该杠吗？', choices:['暗杠一万','不杠，打东听北','拆二筒对子','只看固定6点'],
+        answer:1, recommendedTiles:[12], recommendation:'推荐：不杠，打东保留豪华七对听北',
+        reason:'四张一万在七对里是两个对子和豪华资产。暗杠会关闭现成的自然豪华七对听牌；1000世界中不杠均分25.826，暗杠10.021，不杠高15.805点。',
+        reversal:'若四张同牌不属于七对有效结构，暗杠不破坏合法听口，且补牌与杠开价值高，应重新比较。'
+      },
+      {
+        number:'案例 17 · 抢杠边界', title:'对手明确听九万，还要补杠吗', status:'千世界支持',
+        situation:'已有九万明碰 · 公开信息强烈确认对手以九万完成混一色',
+        tiles:[['9m','complete'],['9m','complete'],['9m','complete'],['1m','weak'],['2m','target'],['3m','target'],['9m','danger'],['4p','target'],['5p','target'],['6p','target'],['7s','target'],['8s','target'],['E','pairs'],['E','pairs']],
+        breakAfter:2, legend:[['complete','已明碰九万'],['danger','手中第四张'],['weak','本次可打一万'],['target','其余结构'],['pairs','东对']],
+        question:'摸到第四张九万，现在补杠还是先不杠？', choices:['立即补杠九万','本次不杠，打一万','拆东对','只看补杠3点'],
+        answer:1, recommendedTiles:[3,6], recommendation:'推荐：本次不补杠，先打一万',
+        reason:'固定对手明确能抢九万时，立即补杠1000次全部被抢；延后当前补杠平均高1.497点。对照机器人以后仍可能再次补杠，因此这是偏保守的收益差。',
+        reversal:'普通未知牌局不能因为“可能有人抢”就取消补杠；只有威胁明确或强烈可推断时适用。永久不补同一张仍待专项实验。'
       }
     ];
 
